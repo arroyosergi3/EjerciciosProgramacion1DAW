@@ -31,8 +31,8 @@ public class ejercicio06_CalculoDeCuota {
 		Double Numerador;
 		Double Denominador;
 		
-		Numerador = Math.pow(Im * (1 + Im), Plazos);
-		Denominador = Math.pow((1 + Im) + 1, Plazos);
+		Numerador = Im * Math.pow((1 + Im), Plazos);
+		Denominador = Math.pow((1 + Im), Plazos) - 1;
 		
 		Cuota = (Capital * (Numerador / Denominador));
 		System.out.println("La cuota mesnual es: " + Cuota );
