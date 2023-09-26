@@ -27,88 +27,88 @@ public class ejercicio01_5NumYSumarAparte {
 		sumgran = (double)0;
 		
 		if (num1 < 0) {
-			sumneg = +num1;
+			sumneg = sumneg + num1;
 		}
 		else {
 			if(num1 <=25){
-				sumbaj = +num1;	
+				sumbaj = sumbaj + num1;	
 				}
 			else{
 				if(num1 <= 250){
-					summed = +num1;
+					summed = summed + num1;
 				}
 				else{
-					sumgran = +num1;
+					sumgran = sumgran + num1;
 				}
 			}
 		}
 		
 		
 		if (num2 < 0) {
-			sumneg = +num2;
+			sumneg = sumneg + num2;
 		}
 		else {
 			if(num2 <=25){
-				sumbaj = +num2;	
+				sumbaj = sumbaj + num2;	
 				}
 			else{
 				if(num2 <= 250){
-					summed = +num2;
+					summed = summed + num2;
 				}
 				else{
-					sumgran = +num2;
+					sumgran = sumgran + num2;
 				}
 			}
 		}
 		
 		if (num3 < 0) {
-			sumneg = +num3;
+			sumneg = sumneg + num3;
 		}
 		else {
 			if(num3 <=25){
-				sumbaj = +num3;	
+				sumbaj = sumbaj + num3;	
 				}
 			else{
 				if(num3 <= 250){
-					summed = +num3;
+					summed = summed +num3;
 				}
 				else{
-					sumgran = +num3;
+					sumgran = sumgran + num3;
 				}
 			}
 		}
 		
 		
 		if (num4 < 0) {
-			sumneg = +num4;
+			sumneg = sumneg + num4;
 		}
 		else {
 			if(num4 <=25){
-				sumbaj = +num4;	
+				sumbaj = sumbaj + num4;	
 				}
 			else{
 				if(num4 <= 250){
-					summed = +num4;
+					summed = summed +num4;
 				}
 				else{
-					sumgran = +num4;
+					sumgran = sumgran + num4;
 				}
 			}
 		}
 		
 		if (num5 < 0) {
-			sumneg = +num5;
+			sumneg = sumneg + num5;
 		}
 		else {
 			if(num5 <=25){
-				sumbaj = +num5;	
+				sumbaj = sumbaj + num5;	
 				}
 			else{
 				if(num5 <= 250){
-					summed = +num5;
+					summed = summed + num5;
 				}
 				else{
-					sumgran = +num5;
+					sumgran = sumgran + num5;
 				}
 			}
 		}
