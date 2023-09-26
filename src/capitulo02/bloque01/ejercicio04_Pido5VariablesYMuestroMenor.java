@@ -23,6 +23,30 @@ public class ejercicio04_Pido5VariablesYMuestroMenor {
 		System.out.println("Introduce otro número: ");
 		num5 = sc.nextDouble();
 		
+		if (num1 > num2) {
+			aux = num1;
+		}
+		else {
+			aux = num2;
+		}
+		if (num3 > num4) {
+			aux1 = num3;
+		}
+		else {
+			aux1 = num4;
+		}
+		if(aux > num5) {
+			aux = aux;
+		}
+		else {
+			aux = num5;
+		}
+		if(aux1 > aux) {
+			System.out.println("El número mayor es " + (int)aux1);
+		}
+		else {
+			System.out.println("El número mayor es " + (int)aux);
+		}
 		if (num1 < num2) {
 			aux = num1;
 		}
