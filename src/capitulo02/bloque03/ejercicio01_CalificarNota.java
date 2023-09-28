@@ -8,7 +8,7 @@ public class ejercicio01_CalificarNota {
 
 		int nota;
 		Scanner sc = new Scanner (System.in);
-		System.out.println("Introduce la nota: ");
+		System.out.println("Introduzca su  nota: ");
 		nota = sc.nextInt();
 		switch (nota) {
 		case 0:
