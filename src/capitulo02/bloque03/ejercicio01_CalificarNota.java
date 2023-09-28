@@ -35,8 +35,8 @@ public class ejercicio01_CalificarNota {
 			System.out.println("Sobresaliente");
 			break;
 		default:
-			System.out.println("Error, el valor no pertenece a ninguna nota");
-	}
+			System.out.println("Error: el valor no pertenece a ninguna nota");
+		}
 
-}
+	}
 }
