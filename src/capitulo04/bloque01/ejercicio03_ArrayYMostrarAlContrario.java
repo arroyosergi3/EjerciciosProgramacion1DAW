@@ -2,8 +2,7 @@ package capitulo04.bloque01;
 
 public class ejercicio03_ArrayYMostrarAlContrario {
 	public static void main(String[] args) {
-		float sum = 0;
-		int mayor = 0, menor = 0;
+
 		int numeros[] = new int[150];
 		
 		for (int i = 0; i < numeros.length; i++) {
