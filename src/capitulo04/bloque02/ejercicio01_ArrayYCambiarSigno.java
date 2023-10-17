@@ -25,9 +25,10 @@ public class ejercicio01_ArrayYCambiarSigno {
 	 * @param array
 	 */
 	public static void cambiaSignoEnValores(int array[]) {
-
+		
 		for (int i = 0; array.length > i; i++) {
-			array[i] = array[i] * -1;
+			if (array[i] % 2 == 0) array[i] = array[i] * -1;
+			
 		}
 
 	}
