@@ -2,9 +2,8 @@ package utils;
 
 public class utils {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static int obtenerNumeroAzar (int min, int max) {
+		 return (int) Math.round(Math.random() * (max - min)) + min;
 
-	}
-
+}
 }
