@@ -21,15 +21,35 @@ public class utilsArrays {
 		a[i] = utils.obtenerNumeroAzar(botLimit, topLimit);
 	}
 	}
+	
 	/**
-	 * 
+	 * Imprime el array en pantalla
 	 * @param array1
 	 */
 	public static void imprimeArray(int array1[]){
 	for (int i = 0; i < array1.length;i++) {
 		System.out.print(array1[i] + " ");
 	}
+	System.out.println();
 	}
-
+	
+	/**
+	 * Multiplicar array por factor
+	 * @param a
+	 * @param factor
+	 */
+	public static void multiplicaValoresPorFactor (int a[], int factor) {
+		for (int i = 0; i < a.length; i++){
+			a [i] = (a[i] * factor);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
