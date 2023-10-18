@@ -49,7 +49,7 @@ public class utilsArrays {
 	 * @param a
 	 * @return
 	 */
-	public static int [] desplazaCiclicoDerecha (int a[]) {
+	public static int [] desplazaUnoDerecha (int a[]) {
 		
 		int right = 0;
 		right = a[a.length - 1];

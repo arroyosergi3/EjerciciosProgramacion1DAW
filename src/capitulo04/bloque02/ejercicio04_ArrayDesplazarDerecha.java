@@ -8,7 +8,7 @@ public class ejercicio04_ArrayDesplazarDerecha {
 		int array[] = new int [5];
 		utilsArrays.inicializaArray(array, 0, 100);
 		utilsArrays.imprimeArray(array);
-		array = desplazaCiclicoDerecha(array);
+		desplazaCiclicoDerecha(array);
 		utilsArrays.imprimeArray(array);
 
 		
@@ -18,7 +18,7 @@ public class ejercicio04_ArrayDesplazarDerecha {
 
 	
 	
-	public static int [] desplazaCiclicoDerecha (int a[]) {
+	public static void desplazaCiclicoDerecha (int a[]) {
 	
 		int right = 0;
 		right = a[a.length - 1];
@@ -26,7 +26,6 @@ public class ejercicio04_ArrayDesplazarDerecha {
 			a[i] = a[i-1];
 		}
 		a[0] = right;
-		return a;
 	}
 	
 }
