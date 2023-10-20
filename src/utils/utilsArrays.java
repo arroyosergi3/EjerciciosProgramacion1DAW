@@ -3,6 +3,7 @@ package utils;
 public class utilsArrays {
 	/**
 	 * Cambia el signo de los valores del array
+	 * 
 	 * @param array
 	 */
 
@@ -13,54 +14,59 @@ public class utilsArrays {
 		}
 
 	}
+
 	/**
 	 * Inicializa un array
 	 */
-	public static void inicializaArray(int a[], int botLimit, int topLimit){
-	for (int i = 0; i < a.length; i++) {
-		a[i] = utils.obtenerNumeroAzar(botLimit, topLimit);
+	public static void inicializaArray(int a[], int botLimit, int topLimit) {
+		for (int i = 0; i < a.length; i++) {
+			a[i] = utils.obtenerNumeroAzar(botLimit, topLimit);
+		}
 	}
-	}
-	
+
 	/**
 	 * Imprime el array en pantalla
+	 * 
 	 * @param array1
 	 */
-	public static void imprimeArray(int array1[]){
-	for (int i = 0; i < array1.length;i++) {
-		System.out.print(array1[i] + " ");
+	public static void imprimeArray(int array1[]) {
+		for (int i = 0; i < array1.length; i++) {
+			System.out.print(array1[i] + " ");
+		}
+		System.out.println();
 	}
-	System.out.println();
-	}
-	
+
 	/**
 	 * Multiplicar array por factor
+	 * 
 	 * @param a
 	 * @param factor
 	 */
-	public static void multiplicaValoresPorFactor (int a[], int factor) {
-		for (int i = 0; i < a.length; i++){
-			a [i] = (a[i] * factor);
+	public static void multiplicaValoresPorFactor(int a[], int factor) {
+		for (int i = 0; i < a.length; i++) {
+			a[i] = (a[i] * factor);
 		}
 	}
-	
+
 	/**
 	 * Desplazar un lugar a derecha
+	 * 
 	 * @param a
 	 * @return
 	 */
-	public static void desplazaUnoDerecha (int a[]) {
-		
+	public static void desplazaUnoDerecha(int a[]) {
+
 		int right = 0;
 		right = a[a.length - 1];
-		for (int i = (a.length - 1); i > 0;i--){
-			a[i] = a[i-1];
+		for (int i = (a.length - 1); i > 0; i--) {
+			a[i] = a[i - 1];
 		}
 		a[0] = right;
 	}
-	
+
 	/**
 	 * Desplazar las veces que diga
+	 * 
 	 * @param a
 	 * @param posiciones
 	 */
@@ -76,16 +82,17 @@ public class utilsArrays {
 			}
 			a[0] = right;
 		}
-		
+
 	}
-	
+
 	/**
 	 * Desplazar las veces que quieras en la dirección que quieras
+	 * 
 	 * @param a
 	 * @param posiciones
 	 * @param direccion
 	 */
-	public static void desplazaCiclicoYDireccion (int a[], int posiciones, int direccion) {
+	public static void desplazaCiclicoYDireccion(int a[], int posiciones, int direccion) {
 		if (direccion == 1) {
 			int right = 0;
 			right = a[a.length - 1];
@@ -111,16 +118,61 @@ public class utilsArrays {
 					a[cambio] = a[(cambio + 1)];
 				}
 				a[a.length - 1] = left;
-				
+
 			}
 
-			
 		}
-		if (direccion != 1 && direccion != 2) {System.out.println("Error, dirección no válida");
+		if (direccion != 1 && direccion != 2) {
+			System.out.println("Error, dirección no válida");
 		}
 	}
+
+	/**
+	 * Ordenación Burbuja
+	 * @param a
+	 */
+	public static void ordenacionBurbuja(int a[]) {
+
+		boolean hayCambios = true;
+		int aux = 0;
+		do {
+			hayCambios = false;
+			for (int i = 0; i < (a.length - 1); i++) {
+
+				if (a[i] > a[i + 1]) {
+					aux = a[i];
+					a[i] = a[i + 1];
+					a[i + 1] = aux;
+					hayCambios = true;
+				}
+
+			}
+
+		} while (hayCambios == true);
+
+	}
 	
-	
+	/**
+	 * Ordenación por seleccion
+	 * @param a
+	 */
+	public static void ordenacionSeleccion(int a[]) {
+		for (int i = 0; i < a.length - 1; i++) {
+			int posicionMenor = i;
+			int aux;
+			for (int j = i + 1; j < a.length - 1; j++) {
+				
+				if (a[posicionMenor] > a[j]) {
+					posicionMenor = j;
+				}
+				
+			}
+			aux = a[i];
+			a[i] = a[posicionMenor];
+			a[posicionMenor] = aux;
+		}
+
+	}
 	
 	
 	
