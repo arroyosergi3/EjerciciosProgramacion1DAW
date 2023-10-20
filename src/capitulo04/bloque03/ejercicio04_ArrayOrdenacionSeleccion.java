@@ -7,7 +7,7 @@ public class ejercicio04_ArrayOrdenacionSeleccion {
 	public static void main(String[] args) {
 		int array[] = new int[150];
 
-		utilsArrays.inicializaArray(array, 0, 100);
+		utilsArrays.inicializaArray(array, 0, 1000);
 		utilsArrays.imprimeArray(array);
 		ordenacionSeleccion(array);
 		System.out.println();
@@ -32,5 +32,4 @@ public class ejercicio04_ArrayOrdenacionSeleccion {
 		}
 
 	}
-
 }
