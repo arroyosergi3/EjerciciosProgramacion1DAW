@@ -174,6 +174,23 @@ public class utilsArrays {
 
 	}
 	
+	/**
+	 * Ordenación Array por Insercción directa
+	 * @param a
+	 */
+	public static void ordenacionInserccionDirecta(int a[]) {
+		int aux, j;
+		for (int i = 1; i < a.length; i++) {
+			 aux = a[i];
+			for (j = i; j > 0 && a[j-1] > aux ; j--){
+				 a[j] = a[j-1];
+			}
+			a[j] = aux;
+
+		}
+	}
+	
+	
 	
 	
 	
