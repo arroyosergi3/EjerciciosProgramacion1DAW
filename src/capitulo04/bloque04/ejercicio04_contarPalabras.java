@@ -12,7 +12,6 @@ public class ejercicio04_contarPalabras {
 		str = sc.nextLine();
 		contarPalabras(str);
 		
-		
 	}
 	
 	

@@ -9,8 +9,6 @@ public class ejercicio03_EsPalindromo {
 		String str;
 		boolean esPalindromo;
 		
-		
-
 		System.out.println("Introduce una cadena de carácteres");
 		str = sc.nextLine();
 		esPalindromo = esPalindromo(str);

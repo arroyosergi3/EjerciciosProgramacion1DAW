@@ -13,7 +13,6 @@ public class ejercicio02_VocalesYConsonantes {
 		str = sc.nextLine();
 		cuentaVocalesYConsonantes(str);
 		
-		
 	}
 
 
