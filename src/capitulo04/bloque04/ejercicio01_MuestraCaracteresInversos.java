@@ -13,6 +13,7 @@ public class ejercicio01_MuestraCaracteresInversos {
 		
 		imprimeArrayInvertido(str);
 		
+	
 		
 	}
 	public static void imprimeArrayInvertido(String cad) {

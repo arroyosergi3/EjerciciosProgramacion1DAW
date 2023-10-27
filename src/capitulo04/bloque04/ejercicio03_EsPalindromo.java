@@ -8,6 +8,8 @@ public class ejercicio03_EsPalindromo {
 		Scanner sc = new Scanner(System.in);
 		String str;
 		boolean esPalindromo;
+		
+		
 
 		System.out.println("Introduce una cadena de carácteres");
 		str = sc.nextLine();

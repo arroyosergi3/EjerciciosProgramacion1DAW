@@ -30,9 +30,12 @@ public class ejercicio04_contarPalabras {
 	    }
 
 	    
+	    
+	    
 
 	    System.out.println("Hay " + palabras + " palabras");
 	}
+
 
 
 }

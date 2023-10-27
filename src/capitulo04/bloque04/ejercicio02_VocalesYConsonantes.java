@@ -16,6 +16,7 @@ public class ejercicio02_VocalesYConsonantes {
 		
 	}
 
+
 	public static void cuentaVocalesYConsonantes (String cad){
 		int vocales = 0, consonantes = 0;
 		for(int i = 0; i < cad.length(); i++){
