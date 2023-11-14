@@ -37,16 +37,18 @@ public class tresEnRaya {
 			imprimirTablero(tablero);
 			jugador = cambiarTurno(jugador);
 		} while( verificarGanador(tablero, jugador) == false && hayEmpate(tablero) == false);
-		if(hayEmpate(tablero)) {
-			System.out.println();
-			System.out.println("EMPATE");
-		}
-		else {
+		
+		if (verificarGanador(tablero, jugador)){
 			imprimirTablero(tablero);
 			System.out.println();
 			System.out.println("JUGADOR " + jugador + " WINS");
 		}
-	}
+		else {
+				System.out.println();
+				System.out.println("EMPATE");
+			}
+		}
+	
 	
 	
 	public static void inicializarTablero(int tablero[][]){
@@ -180,9 +182,11 @@ public class tresEnRaya {
 			
 		return cambio;
 	}
-
 	
-
+	
+	
+	
+	
 	
 	
 	
