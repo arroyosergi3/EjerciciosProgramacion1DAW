@@ -43,6 +43,10 @@ public class tresEnRaya {
 		}
 	}
 
+	/**
+	 * Inicializa el tablero a 0
+	 * @param tablero
+	 */
 	public static void inicializarTablero(int tablero[][]) {
 
 		for (int i = 0; i < tablero.length; i++) {
@@ -52,7 +56,10 @@ public class tresEnRaya {
 		}
 
 	}
-
+/**
+ * Imprime el tablero con las posiciones en el momento
+ * @param tablero
+ */
 	public static void imprimirTablero(int tablero[][]) {
 
 		for (int i = 0; i < tablero.length; i++) {
@@ -64,6 +71,11 @@ public class tresEnRaya {
 
 	}
 
+	/**
+	 * Realiza el movimiento indicado por el jugador
+	 * @param tablero
+	 * @param jugador
+	 */
 	public static void realizarMovimiento(int tablero[][], int jugador) {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("\nLe toca al jugador " + jugador);
@@ -110,6 +122,14 @@ public class tresEnRaya {
 
 	}
 
+	
+	/**
+	 * Comprueba si es un movimiento válido (el lugar no es 0)
+	 * @param tablero
+	 * @param fila
+	 * @param columna
+	 * @return
+	 */
 	public static boolean esMovimientoValido(int tablero[][], int fila, int columna) {
 		for (int i = 0; i < tablero.length; i++) {
 			for (int j = 0; j < tablero.length; j++) {
@@ -125,6 +145,13 @@ public class tresEnRaya {
 		return true;
 	}
 
+	
+	/**
+	 * Comprueba si alguien ha ganado
+	 * @param tablero
+	 * @param jugador
+	 * @return
+	 */
 	public static boolean verificarGanador(int tablero[][], int jugador) {
 		for (int i = 0; i < tablero.length; i++) {
 			if ((tablero[i][0] == jugador && tablero[i][1] == jugador && tablero[i][2] == jugador)
@@ -141,6 +168,12 @@ public class tresEnRaya {
 		return false;
 	}
 
+	
+	/**
+	 * Comprueba si hay empate(ningún 0 en el tablero)
+	 * @param tablero
+	 * @return
+	 */
 	public static boolean hayEmpate(int tablero[][]) {
 		for (int i = 0; i < tablero.length; i++) {
 			for (int j = 0; j < tablero.length; j++) {
@@ -152,6 +185,11 @@ public class tresEnRaya {
 		return true;
 	}
 
+	/**
+	 * Cambia turno del jugador
+	 * @param jugador
+	 * @return
+	 */
 	public static int cambiarTurno(int jugador) {
 		int cambio = jugador;
 
