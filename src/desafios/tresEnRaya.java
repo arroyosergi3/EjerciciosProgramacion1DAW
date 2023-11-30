@@ -37,6 +37,7 @@ public class tresEnRaya {
 			System.out.println();
 			System.out.println("JUGADOR " + jugador + " WINS");
 		} else {
+			System.out.println();
 			imprimirTablero(tablero);
 			System.out.println();
 			System.out.println("EMPATE");

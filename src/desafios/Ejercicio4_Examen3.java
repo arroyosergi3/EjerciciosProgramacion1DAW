@@ -11,30 +11,24 @@ public class Ejercicio4_Examen3 {
 		mostrarPAresFibonacci(n);
 
 	}
-
+	 public static int fibonacci(int i){
+	        if (i <= 1) {
+	            return i;
+	        } else {
+	            return fibonacci(i - 1) + fibonacci(i - 2);
+	        }
+	 }
 	public static void mostrarPAresFibonacci(int n) {
 		int cont = 0;
-
-		int a[] = new int[1000000000];
-
-		for (int i = 0; cont < n; i++) {
-			if (i == 0) {
-				a[i] = 1;
-				
-			}
-			else if (i == 1) {
-				a[i] = 1;
-				
-			}
-			else
-			a[i] = a[i - 1] + a[i - 2];
-			
-			if (a[i] % 2 == 0) {
-				System.out.print(a[i] + " ");
-				cont++;
+		for (int i = 1; cont < n; i++) {
+			if(fibonacci(i) % 2 == 0) {
+				System.out.print(fibonacci(i) + " ");
+				cont ++;
 			}
 		}
-
 	}
+		
+
+	
 
 }

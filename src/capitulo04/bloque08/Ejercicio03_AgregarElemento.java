@@ -1,6 +1,5 @@
 package capitulo04.bloque08;
 
-import java.security.DrbgParameters.NextBytes;
 import java.util.Scanner;
 
 import utils.utilsArrays;

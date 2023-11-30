@@ -21,11 +21,11 @@ public class Ejercicio2_Examen2 {
 		for (int i = 0; i < array.length; i++) {
 			do {
 				int v = utils.obtenerNumeroAzar(0, 4);
-				esta = false; // Reiniciar la bandera en cada iteración
+				esta = false; 
 				for (int j = 0; j < i; j++) {
 					if (a[v] == array[j]) {
 						esta = true;
-						break; // Salir del bucle si ya se encontró un número repetido
+						break; 
 					}
 				}
 				if (!esta) {
