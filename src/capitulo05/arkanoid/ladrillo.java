@@ -72,7 +72,7 @@ public class ladrillo {
 
 	
 	public String toString() {
-		return "ladrillo [color=" + color + ", x=" + x + ", y=" + y + ", ancho=" + ancho + ", alto=" + alto
+		return "ladrillo [color=" + color + ", x=" + x + ", y=" + y 
 				+ ", puntosVida=" + puntosVida + "]";
 	}
 	
