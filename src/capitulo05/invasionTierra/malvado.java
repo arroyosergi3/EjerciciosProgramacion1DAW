@@ -32,7 +32,7 @@ public class malvado {
 		nombre = newNombre;
 	}
 	
-	public int getPuntosVida() {nombre
+	public int getPuntosVida() {
 		return puntosVida;
 	}
 	
@@ -50,7 +50,7 @@ public class malvado {
 	}
 	
 	
-	public String toString () {nombre
+	public String toString () {
 		return nombre+ ":"+ puntosVida +":"+ vivo+":" + disparosRecibidos;
 	}
 	
