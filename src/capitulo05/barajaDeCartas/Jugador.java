@@ -2,8 +2,8 @@ package capitulo05.barajaDeCartas;
 
 
 public class Jugador {
-	String nombre;
-	Carta mano[] = new Carta[5];
+	private String nombre;
+	private Carta mano[] = new Carta[5];
 	
 	public Jugador() {
 		for (int i = 0; i < mano.length; i++) {
@@ -38,13 +38,13 @@ public class Jugador {
 	}
 	
 	
-	public String manoToString() {
-		String cartas ="Jugador ";
-		for (int i = 0; i < mano.length; i++) {
-			cartas += mano[i].toString();
-					}
-		return cartas;
-	}
+//	public String manoToString() {
+//		String cartas ="Jugador ";
+//		for (int i = 0; i < mano.length; i++) {
+//			cartas += mano[i].toString();
+//					}
+//		return cartas;
+//	}
 	
 	
 	

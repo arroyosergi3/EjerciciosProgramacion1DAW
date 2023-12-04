@@ -14,7 +14,6 @@ public class Principal {
 //		System.out.println(baraja.toString());
 //		baraja.ordenar();
 //		System.out.println(baraja.toString());
-		poker.repartir();
 		poker.imprimirManos();
 		
 		
