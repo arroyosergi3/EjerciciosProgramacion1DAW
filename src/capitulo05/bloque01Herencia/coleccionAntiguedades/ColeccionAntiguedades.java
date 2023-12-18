@@ -59,7 +59,10 @@ public class ColeccionAntiguedades {
 				
 				
 			}
-			else System.out.println("Error, no es una opción válida");
+			else {
+				System.out.println("Error, no es una opción válida");
+				i--;
+			}
 			
 			
 		}
