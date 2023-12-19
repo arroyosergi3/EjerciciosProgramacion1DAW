@@ -37,18 +37,30 @@ public class Ejercicio01_ListaInteger {
 				break;
 			}
 			case 4:{
-				
+				System.out.println("Cuántos datos nuevos quieres agregar?");
+				int nue = Integer.parseInt(sc.nextLine());
+				System.out.println("En qué posición los quieres?");
+				int pos = Integer.parseInt(sc.nextLine());
+				System.out.println("Qué valor es el mínimo?");
+				int min = Integer.parseInt(sc.nextLine());
+				System.out.println("Qué valor es el máximo?");
+				int max = Integer.parseInt(sc.nextLine());
+				agrega(lista, nue, pos, min, max);
+				break;
 			}
 			case 5:{
-				
+				System.out.println("Cual es el valor mínimo del intervalo?");
+				int min = Integer.parseInt(sc.nextLine());
+				System.out.println("Cuál es el valor máximo del intervalo?");
+				int max = Integer.parseInt(sc.nextLine());
+				eliminar(lista, min, max);
+				break;
 			}
 			case 6:{
 				imprimirLista(lista);
 				
 				break;
 			}
-			
-			
 			}
 			
 	
@@ -65,6 +77,7 @@ public class Ejercicio01_ListaInteger {
 		}
 	}
 	public static void operaciones(List<Integer> l) {
+
 	
 		int suma = 0, media;
 		Integer menor, mayor;
@@ -84,6 +97,29 @@ public class Ejercicio01_ListaInteger {
 		System.out.println("La suma es " + suma + "\nLa media es " + media + "\nEl"
 		+ " mayor es " + mayor + "\nEl menor es "+ menor);
 		
+	}
+	public static void agrega(List <Integer> l, int n, int p, int min, int max  ) {
+		List <Integer> agregada = new ArrayList<Integer>();
+		for (int i = 0; i < n; i++) {
+			agregada.add(Integer.valueOf(utils.utils.obtenerNumeroAzar(min, max)));
+		}
+		
+		l.addAll(p, agregada);
+		
+		
+		
+		
+	}
+	public static void eliminar(List <Integer> l, int min, int max){
+		int el = 0;
+		for (int i = l.size() - 1; i > 0; i--) {
+			if((int)l.get(i) >=  min && (int)l.get(i) <= max) {
+				l.remove(i);
+				el++;
+			}
+		}
+		System.out.println("Se han eliminado "+ el + " números");
+
 	}
 	public static void imprimirLista(List <Integer> l) {
 		for (int i = 0; i < l.size(); i++) {
