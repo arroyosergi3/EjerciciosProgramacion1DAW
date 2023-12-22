@@ -10,12 +10,13 @@ public class Ejercicio02_ListaString {
 		Scanner sc = new Scanner(System.in);
 		int n;
 		List<String> lista = new ArrayList<String>();
+		List<String> portapapeles = new ArrayList<String>();
 		
 		do {
-			System.out.println("Menú\n1. Abandonar Prgrama\n2. Agregar una lista al texto"
-					+ "\n3. Añadir lista en posicion\n4. Editar una línea"
+			System.out.println("Menú\n1. Abandonar Prgrama\n2. Agregar una linea al texto"
+					+ "\n3. Añadir linea en posicion\n4. Editar una línea"
 					+ "\n5. Borrar Lineas\n6. Cortar\n"
-					+ "7. Algo\n8. Imprime lista");
+					+ "7. Pegar\n8. Imprime lista");
 			n = Integer.parseInt(sc.nextLine());
 			switch(n) {
 			case 1:{
@@ -57,16 +58,18 @@ public class Ejercicio02_ListaString {
 				int posI = Integer.parseInt(sc.nextLine());
 				System.out.println("Dame la posición final");
 				int posF = Integer.parseInt(sc.nextLine());
-				cortarLineas(lista, posI, posF);
+				portapapeles = cortarLineas(lista, posI, posF);
 				break;
 			}
 			case 7:{
-				
+				System.out.println("En qué posición lo quieres pegar?");
+				int p = Integer.parseInt(sc.nextLine());
+				pegarLineas(portapapeles, lista, p);
 				break;
 			}
 			case 8:{
 				imprimirLista(lista);
-	break;
+				break;
 }
 			}
 			
@@ -86,41 +89,37 @@ public class Ejercicio02_ListaString {
 	}
 	public static void  editarLinea(List <String> l, int p) {
 		Scanner sc = new Scanner(System.in);
-		for (int i = l.size() -1 ; i > 0; i++) {
+		for (int i = l.size() -1 ; i >= 0; i--) {
 			if(p == i) {
 				System.out.println(l.get(i));
 				System.out.println("Dame una línea");
 				String s = sc.nextLine();
-				l.remove(i);
-				l.add(i, s);
+				l.set(p, s);
 			}
 		}
 	}
 	public static void borrarLinea(List <String> l, int p) {
-		for (int i = l.size() - 1; i > 0; i++) {
+		for (int i = l.size() - 1; i >= 0; i--) {
 			if(i == p) {
 				l.remove(i);
 			}
 		}
 	}
-	public static void cortarLineas(List <String> l, int i, int f) {
+	public static List cortarLineas(List <String> l, int i, int f) {
+
 		List <String> portapapeles = new ArrayList<String>();
-		for (int j = 0; j < l.size(); j++) {
-			if(j >= i && j <= f) {
+		for (int j = f; j >= i; j--) {
 				portapapeles.add(l.get(j));
 				borrarLinea(l, j);
-			}
 		}
-//		for (int j = l.size(); j > 0; j++) {
-//			if(j >= f && j <= i) {
-//				l.remove(j);
-//			}
-//			
-//		}
-	}
+		return portapapeles;
 
-	
-	
+	}
+	public static void pegarLineas(List <String> port,List <String> l, int p){
+		
+            l.addAll(p, port);
+        
+    }
 	public static void imprimirLista(List <String> l) {
 		for (int i = 0; i < l.size(); i++) {
 			System.out.println(l.get(i));
