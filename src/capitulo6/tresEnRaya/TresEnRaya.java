@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class TresEnRaya extends Canvas{
+public class TresEnRaya extends JPanel{
 	
 	JFrame ventana = new JFrame("Tres en Raya");
 	
@@ -69,15 +69,12 @@ public class TresEnRaya extends Canvas{
 		
 		SoundRepository.getInstance().loopSound(SoundRepository.MUSICA_DE_FONDO);
 		
-		
-		
 		ventana.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		ventana.addWindowListener(new WindowAdapter() {
 		public void windowClosing(WindowEvent e) {
 			cerrarAplicacion();
 		}
-		});
-		
+		});		
 		ventana.setVisible(true);
 		
 		this.requestFocus();
@@ -96,8 +93,6 @@ public class TresEnRaya extends Canvas{
 			}
 		}
 	}
-	
-	
 	
 	public void cerrarAplicacion() {
 		String [] opciones = {"Aceptar", "Cancelar"};

@@ -1,19 +1,30 @@
 package capitulo6.tresEnRaya;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class Cuadros {
 	private int xEnTablero, yEnTablero;
 	private int esquinaSuperiorIzquierdaX, esquinaSuperiorIzquierdaY;
 	private int ancho, alto;
 	private int jugadorPropietario = 0;
+
+	
+	
+	
 	public Cuadros(int xEnTablero, int yEnTablero) {
 		super();
 		this.xEnTablero = xEnTablero;
 		this.yEnTablero = yEnTablero;
 	}
+	
 	public void paint (Graphics g) {
 		ancho = TresEnRaya.getInstance().getWidth() / 3;
 		alto = TresEnRaya.getInstance().getHeight() / 3;
@@ -62,7 +73,7 @@ public class Cuadros {
 		return false;
 	}
 	
-	public static boolean comprobar(int[][] m, int player) {
+	public static boolean comprobarGanar(int[][] m, int player) {
         // Comprobar filas y columnas
         for (int i = 0; i < 3; i++) {
             if ((m[i][0] == player && m[i][1] == player && m[i][2] == player) ||
@@ -79,19 +90,100 @@ public class Cuadros {
 
         return false;
     }
+	public void mensajeEmpate() {
+		JFrame ventana = new JFrame("EMPATE");
+
+        // Crear una etiqueta para mostrar el mensaje
+        JLabel mensajeLabel = new JLabel("¡EMPATE!");
+
+        // Agregar la etiqueta a la ventana
+        ventana.add(mensajeLabel, BorderLayout.CENTER);
+
+        // Configurar las propiedades de la ventana
+        ventana.setSize(300, 150); // Establecer tamaño
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Cerrar la aplicación al cerrar la ventana
+        ventana.setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+        ventana.setVisible(true); // Hacer la ventana visible
+	}
+	
+	public void mensajeGanador(int j) {
+		
+		
+		if(j == TresEnRaya.getInstance().JUGADOR_1) {
+			JFrame ventana = new JFrame("Ganador - Jugador 1");
+
+	        // Crear una etiqueta para mostrar el mensaje
+	        JLabel mensajeLabel = new JLabel("¡TINO TOVAR ha ganado!");
+
+	        // Agregar la etiqueta a la ventana
+	        ventana.add(mensajeLabel, BorderLayout.CENTER);
+
+	        // Configurar las propiedades de la ventana
+	        ventana.setSize(300, 150); // Establecer tamaño
+	        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Cerrar la aplicación al cerrar la ventana
+	        ventana.setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+	        ventana.setVisible(true); // Hacer la ventana visible
+	    }
+		else if(j == TresEnRaya.getInstance().JUGADOR_2) {
+			JFrame ventana = new JFrame("Ganador - Jugador 2");
+
+	        // Crear una etiqueta para mostrar el mensaje
+	        JLabel mensajeLabel = new JLabel("¡JOAQUÍN QUIÑONES ha ganado!");
+
+	        // Agregar la etiqueta a la ventana
+	        ventana.add(mensajeLabel, BorderLayout.CENTER);
+
+	        // Configurar las propiedades de la ventana
+	        ventana.setSize(300, 150); // Establecer tamaño
+	        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Cerrar la aplicación al cerrar la ventana
+	        ventana.setLocationRelativeTo(null); // Centrar la ventana en la pantalla
+	        ventana.setVisible(true); // Hacer la ventana visible
+			
+		}
+			
+	
+		
+	}
+	
+	public boolean comprobarDisponibles() {
+		for (int i = 0; i < TresEnRaya.getInstance().getMatrizJugadas().length; i++) {
+			for (int j = 0; j < TresEnRaya.getInstance().getMatrizJugadas().length; j++) {
+				if (TresEnRaya.getInstance().getMatrizJugadas()[i][j] ==0) {
+					return true;
+					
+					
+				}
+			}
+		}
+		return false;
+		
+				
+	}
+	
 	public void clic(int jugador) {
+		
+		
 		if(this.jugadorPropietario == 0) {
 			this.jugadorPropietario = jugador;
 			
 			
+			
 			TresEnRaya.getInstance().getMatrizJugadas()[this.yEnTablero][this.xEnTablero] = jugador;
+			
 		}
 		
 		TresEnRaya.getInstance().repaint();
 		TresEnRaya.getInstance().revalidate();
-		if(comprobar(TresEnRaya.getInstance().getMatrizJugadas(), jugador)) {
-			
+		if(comprobarGanar(TresEnRaya.getInstance().getMatrizJugadas(), jugador)) {
+			mensajeGanador(jugador);
 		}
+		else if(comprobarDisponibles() == false) {
+			mensajeEmpate();
+		}
+	
+			
+				
+			
 	}
 	
 	
