@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class TresEnRaya extends JPanel{
+public class TresEnRaya extends Canvas{
 	
 	JFrame ventana = new JFrame("Tres en Raya");
 	
