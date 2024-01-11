@@ -28,7 +28,7 @@ public class Ejercicio04_FicheroDePropiedades {
 //				propiedades.load(propiedades.getClass().getResourceAsStream("/tutorialJava/capitulo6_Recursos/ejemplo.properties"));
 
 				// Otra forma de leer el fichero de propiedades
-				File file = new File("/home/diurno/git/EjerciciosProgramacion1DAW/src/capitulo07/bloque01/prueba.properties");
+				File file = new File("./src/capitulo07/bloque01/prueba.properties");
 				System.out.println("Fichero encontrado: " + file.exists());
 				propiedades.load(new FileReader(file));
 			
@@ -86,7 +86,7 @@ public class Ejercicio04_FicheroDePropiedades {
 		System.out.println("String: " + s
 						+ "\nFloat: " + f 
 						+ "\nInt: " + i 
-						+ "\nBoolean: " + b);
+				+ "\nBoolean: " + b);
 		
 		
 	
