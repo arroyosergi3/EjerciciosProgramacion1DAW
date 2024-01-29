@@ -29,7 +29,7 @@ public class PidePalabra {
 		if (s.contains("bombilla") == false) {
 			throw new PalabraBombillaException("Error, la frase no contiene la palabra \"bombilla\"");
 		}
-		if (s.contains("tonto") || s.contains("tonta") || s.contains("idiota")) {
+		if (s.contains("tonto") || s.contains("tonta")  || s.contains("idiota")) {
 			throw new PalabraBombillaException("Error, la frase contiene palabras soeces");
 		}
 		
