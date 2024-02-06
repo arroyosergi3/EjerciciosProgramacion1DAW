@@ -6,7 +6,14 @@ import java.util.Scanner;
 
 public class ProgramaLisMain {
 
-	
+//	Crear el "Event", que contiene información útil sobre el evento recibido.
+//	Crear el "Listener", es una interface que contiene la estructura de 
+//	notificación de los eventos producidos.
+//	Una clase que controle aquello en lo que se puede producir el evento. Esta clase: 
+//	1- Realiza la acción que puede producir el evento; 
+//	2- Posee una lista de listeners a los que notificar eventos; 
+//	3- Posee métodos para agregar y eliminar listeners y para disparar cada tipo de evento; 
+//	Objetos que se convierten en listeners y son notificados.
 	
 	
 	private static List<ProgramaLisListener> listeners = new ArrayList<ProgramaLisListener>();
