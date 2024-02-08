@@ -49,9 +49,13 @@ public class Programa {
 			case 3: {
 				int id;
 				String cif, name;
-
 				System.out.println("Dame el ID ");
 				id = Integer.parseInt(sc.nextLine());
+				ResultSet rs =  conexion.createStatement().executeQuery("select * from fabricante where id=" + id);
+				if (!rs.next()) {
+					System.err.println("Error, el ID no es valido");
+					break;
+				}
 				System.out.println("Dame el CIF ");
 				cif = sc.nextLine();
 				System.out.println("Dame el nombre  ");
@@ -68,7 +72,11 @@ public class Programa {
 			case 4: {
 				System.out.println("Dame el ID para eliminar");
 				int id = Integer.parseInt(sc.nextLine());
-			
+				ResultSet rs =  conexion.createStatement().executeQuery("select * from fabricante where id=" + id);
+				if (!rs.next()) {
+					System.err.println("Error, el ID no es valido");
+					break;
+				}
 					eliminar(conexion, id);
 				
 				
@@ -150,9 +158,7 @@ public class Programa {
 				+ "nombre = '" + n + "'\r\n" + "where id = " + id);
 
 		System.out.println("Filas afectadas: " + filasAfectadas);
-		if (filasAfectadas == 0) {
-			System.err.println("Error, ID no válido");
-		}
+		
 		
 		s.close();
 	}
@@ -167,9 +173,7 @@ public class Programa {
 	   
 		System.out.println("Filas afectadas: " + filasAfectadas);
 		
-		if (filasAfectadas == 0) {
-			System.err.println("Error, ID no válido");
-		}
+		
 		s.close();
 	}
 
