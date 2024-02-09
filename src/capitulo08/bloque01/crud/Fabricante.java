@@ -25,7 +25,7 @@ public class Fabricante {
 			int eleccion = 0;
 			do {
 				System.out.println("Menú\n" + "\n0. Salir" + "\n1. Listar "
-						+ "\n2. Crear fabricante" + "\n3. Modificar  fabricante" + "\n4. Eliminar fabricante");
+						+ "\n2. Crear fabricante" + "\n3. Modificar  fabricante" + "\n4. Eliminar fabricante" + "\n5. Volver Atrás");
 				eleccion = Integer.parseInt(sc.nextLine());
 
 				switch (eleccion) {
@@ -85,6 +85,10 @@ public class Fabricante {
 					
 					break;
 				}
+				case 5:{
+					Programa.main(args);
+					break;
+				}
 				}
 			} while (eleccion != 0);
 			conexion.close();
@@ -93,7 +97,7 @@ public class Fabricante {
 
 		
 
-		private static void listar(Connection conn) {
+		public static void listar(Connection conn) {
 			try {
 			
 				Class.forName("com.mysql.cj.jdbc.Driver");

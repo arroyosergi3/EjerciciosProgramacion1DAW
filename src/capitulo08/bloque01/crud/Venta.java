@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Venta {
@@ -19,7 +22,7 @@ public class Venta {
 				Connection conexion = null;
 				try {
 					conexion = (Connection) DriverManager
-							.getConnection("jdbc:mysql://localhost:3310/tutorialjavaventas?serverTimezone=UTC", "root", "1234");
+							.getConnection("jdbc:mysql://localhost:3310/tutorialjavacoches?serverTimezone=UTC", "root", "1234");
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -29,7 +32,7 @@ public class Venta {
 				int eleccion = 0;
 				do {
 					System.out.println("Menú\n" + "\n0. Salir" + "\n1. Listar "
-							+ "\n2. Crear venta" + "\n3. Modificar  venta" + "\n4. Eliminar venta");
+							+ "\n2. Crear venta" + "\n3. Modificar  venta" + "\n4. Eliminar venta" + "\n5. Volver Atrás");
 					eleccion = Integer.parseInt(sc.nextLine());
 
 					switch (eleccion) {
@@ -42,34 +45,88 @@ public class Venta {
 						break;
 					}
 					case 2: {
-						String cif = "";
-						String nombre = "";
-
-						System.out.println("Dame el CIF: ");
-						cif = sc.nextLine();
-						System.out.println("Dame el nombre: ");
-						nombre = sc.nextLine();
-						aniadir(conexion, cif, nombre);
+						int idCl = 0, idCo = 0, idCoc = 0;
+						String fecha = "";
+						float precio;
+						
+						Cliente.listar(conexion);
+						System.out.println("Dame el ID del Cliente: ");
+						idCl = Integer.parseInt(sc.nextLine());
+						
+						Concesionario.listar(conexion);
+						System.out.println("Dame el ID del Concesionario: ");
+						idCo = Integer.parseInt(sc.nextLine());
+						
+						Coche.listar(conexion);
+						System.out.println("Dame el ID del Coche: ");
+						idCoc = Integer.parseInt(sc.nextLine());
+						
+						
+						System.out.println("Dame la fecha: ");
+						fecha = sc.nextLine();
+						
+						System.out.println("Dame el precio");
+						precio = Float.parseFloat(sc.nextLine());
+						
+						
+						SimpleDateFormat sdfEntrada = new SimpleDateFormat("dd/MM/yyyy");
+			               
+			               
+		                Date date = new Date();
+		                try {
+		                        date = sdfEntrada.parse(fecha);
+		                } catch (ParseException e) {
+		                        // TODO Auto-generated catch block
+		                        e.printStackTrace();
+		                }
+		               
+		                
+		                
+						aniadir(conexion, idCl, idCo, idCoc, date, precio);
 
 						break;
 					}
 					case 3: {
-						int id;
-						String cif, name;
-						System.out.println("Dame el ID ");
-						id = Integer.parseInt(sc.nextLine());
-						ResultSet rs =  conexion.createStatement().executeQuery("select * from venta where id=" + id);
-						if (!rs.next()) {
-							System.err.println("Error, el ID no es valido");
-							break;
-						}
-						System.out.println("Dame el CIF ");
-						cif = sc.nextLine();
-						System.out.println("Dame el nombre  ");
-						name = sc.nextLine();
-
+						int idCl = 0, idCo = 0, idCoc = 0;
+						String fecha = "";
+						float precio;
+						
+						System.out.println("Dame el ID de la venta a modificar");
+						int id = Integer.parseInt(sc.nextLine());
+						
+						Cliente.listar(conexion);
+						System.out.println("Dame el ID del Cliente: ");
+						idCl = Integer.parseInt(sc.nextLine());
+						
+						Concesionario.listar(conexion);
+						System.out.println("Dame el ID del Concesionario: ");
+						idCo = Integer.parseInt(sc.nextLine());
+						
+						Coche.listar(conexion);
+						System.out.println("Dame el ID del Coche: ");
+						idCoc = Integer.parseInt(sc.nextLine());
+						
+						
+						System.out.println("Dame la fecha: ");
+						fecha = sc.nextLine();
+						
+						System.out.println("Dame el precio");
+						precio = Float.parseFloat(sc.nextLine());
+						
+						
+						SimpleDateFormat sdfEntrada = new SimpleDateFormat("dd/MM/yyyy");
+			               
+			               
+		                Date date = new Date();
+		                try {
+		                        date = sdfEntrada.parse(fecha);
+		                } catch (ParseException e) {
+		                        // TODO Auto-generated catch block
+		                        e.printStackTrace();
+		                }
+		               
+					modificar(conexion, id, idCl, idCo, idCoc, date, precio);
 					
-							modificar(conexion, id, cif, name);
 						
 						
 						
@@ -87,6 +144,10 @@ public class Venta {
 							eliminar(conexion, id);
 						
 						
+						break;
+					}
+					case 5:{
+						Programa.main(args);
 						break;
 					}
 					}
@@ -119,7 +180,7 @@ public class Venta {
 
 					// Navegación del objeto ResultSet
 					while (rs.next()) {
-						System.out.println(rs.getInt("id") + " " + rs.getString(2) + " " + rs.getString(3));
+						System.out.println(rs.getInt("id") + " " + rs.getString(2) + " " + rs.getString(3)+ " " + rs.getString(4)+ " " + rs.getString(5)+ " " + rs.getString(6));
 					}
 					// Cierre de los elementos
 					rs.close();
@@ -135,12 +196,17 @@ public class Venta {
 
 
 			
-			private static void aniadir(Connection conn, String cif, String n) throws SQLException {
+			private static void aniadir(Connection conn, int idCl, int idCo, int idCoc, Date date, float p) throws SQLException {
 
 				Statement s = (Statement) conn.createStatement();
 
-				int filasAfectadas = s.executeUpdate("insert into tutorialjavaventas.venta " + "(id, cif, nombre) values ("
-						+ getSiguienteIdValidoventa(conn) + ", '" + cif + "','" + n + "')");
+                SimpleDateFormat sdfSalida = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                
+
+				
+				
+				int filasAfectadas = s.executeUpdate("insert into tutorialjavacoches.venta " + "(id, idCliente, idConcesionario, idCoche, fecha, precioVenta) values ("
+						+ getSiguienteIdValidoventa(conn) + "," + idCl + "," + idCo + "," + idCoc + ",'" + sdfSalida.format(date)+ "'," + p+ ")");
 
 				System.out.println("Filas afectadas: " + filasAfectadas);
 
@@ -148,7 +214,7 @@ public class Venta {
 			
 			private static int getSiguienteIdValidoventa(Connection conn) throws SQLException {
 				Statement s = conn.createStatement();
-				ResultSet rs = s.executeQuery("select max(id) as maximoId " + "from tutorialjavaventas.venta");
+				ResultSet rs = s.executeQuery("select max(id) as maximoId " + "from tutorialjavacoches.venta");
 
 				if (rs.next()) {
 					return rs.getInt(1) + 1;
@@ -157,12 +223,20 @@ public class Venta {
 				return 1;
 			}
 
-			private static void modificar(Connection conn, int id, String cif, String n) throws SQLException {
+			private static void modificar(Connection conn,int id,  int idCl, int idCo, int idCoc, Date date, float p) throws SQLException {
 
 				Statement s = (Statement) conn.createStatement();
 
-				int filasAfectadas = s.executeUpdate("update tutorialjavaventas.venta " + "set cif = '" + cif + "', "
-						+ "nombre = '" + n + "'\r\n" + "where id = " + id);
+				  SimpleDateFormat sdfSalida = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				
+				
+				int filasAfectadas = s.executeUpdate("update tutorialjavacoches.venta " + 
+				"set idCliente = " + idCl + ", "
+				+ "idConcesionario = " + idCo + ", "
+				+ "idCoche = " + idCoc + ", "
+				+ "fecha = '" + sdfSalida.format(date) + "', "
+				+ "precioVenta = " + p 
+				+ "where id = " + id);
 
 				System.out.println("Filas afectadas: " + filasAfectadas);
 				
@@ -175,7 +249,7 @@ public class Venta {
 				Statement s = (Statement) conn.createStatement(); 
 
 				int filasAfectadas = s.executeUpdate("Delete from "
-						+ "tutorialjavaventas.venta "
+						+ "tutorialjavacoches.venta "
 						+ "where id = " + id);
 			   
 				System.out.println("Filas afectadas: " + filasAfectadas);

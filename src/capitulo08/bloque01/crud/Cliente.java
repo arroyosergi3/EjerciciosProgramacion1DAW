@@ -31,7 +31,7 @@ public class Cliente {
 				int eleccion = 0;
 				do {
 					System.out.println("Menú\n" + "\n0. Salir" + "\n1. Listar "
-							+ "\n2. Crear cliente" + "\n3. Modificar  cliente" + "\n4. Eliminar cliente");
+							+ "\n2. Crear cliente" + "\n3. Modificar  cliente" + "\n4. Eliminar cliente" + "\n5. Volver Atrás");
 					eleccion = Integer.parseInt(sc.nextLine());
 
 					switch (eleccion) {
@@ -75,6 +75,15 @@ public class Cliente {
 		               
 		                SimpleDateFormat sdfSalida = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						
+		                
+		                System.out.println("Es activo?: 0 para no, 1 para si");
+						Integer a = Integer.parseInt(sc.nextLine());
+						if (a == 1) {
+							activo = true;
+						}
+						else if (a == 0) {
+							activo = false;
+						}
 						
 						
 						aniadir(conexion, dniNie, nombre, apellido, localidad, date, activo);
@@ -111,6 +120,14 @@ public class Cliente {
 						localidad = sc.nextLine();
 						System.out.println("Dame la fecha de nacimiento: ");
 						f_nac = sc.nextLine();
+						System.out.println("Es activo?: 0 para no, 1 para si");
+						Integer a = Integer.parseInt(sc.nextLine());
+						if (a == 1) {
+							activo = true;
+						}
+						else if (a == 0) {
+							activo = false;
+						}
 						
 						SimpleDateFormat sdfEntrada = new SimpleDateFormat("dd/MM/yyyy");
 		               
@@ -123,6 +140,9 @@ public class Cliente {
 		                        e.printStackTrace();
 		                }
 		               
+		                
+		                
+		                
 						
 						
 						
@@ -146,6 +166,10 @@ public class Cliente {
 						
 						break;
 					}
+					case 5:{
+						Programa.main(args);
+						break;
+					}
 					}
 				} while (eleccion != 0);
 				conexion.close();
@@ -154,7 +178,7 @@ public class Cliente {
 
 			
 
-			private static void listar(Connection conn) {
+			public static void listar(Connection conn) {
 				try {
 				
 					Class.forName("com.mysql.cj.jdbc.Driver");
@@ -221,15 +245,13 @@ public class Cliente {
 
 				Statement s = (Statement) conn.createStatement();
                 SimpleDateFormat sdfSalida = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-				int filasAfectadas = s.executeUpdate("update tutorialjavacoches.cliente " + 
-				"set nombre = '" + n + "', "+
-				"apellido = '" + a + "'," +
-				"localidad = '" + l + "'," +
-				"dniNie = '" + d + "'," +
-				"fechaNac = '" + sdfSalida.format(f) + "'," +
-				"activo = '" + ac + "'," +
-				"where id = " + id);
+                int filasAfectadas = s.executeUpdate("update tutorialjavacoches.cliente "
+                        + "set nombre = '" + n + "', "
+                        + "apellidos = '" + a + "',"
+                        + "localidad = '" + l + "',"
+                        + "dniNie = '" + d + "',"
+                        + "fechaNac = '" + sdfSalida.format(f) + "', activo='" + ((ac)? 1 : 0)
+                        + "' where id = " + id);
 
 				System.out.println("Filas afectadas: " + filasAfectadas);
 				

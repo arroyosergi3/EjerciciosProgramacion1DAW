@@ -29,7 +29,7 @@ public class Concesionario {
 				int eleccion = 0;
 				do {
 					System.out.println("Menú\n" + "\n0. Salir" + "\n1. Listar "
-							+ "\n2. Crear cliente" + "\n3. Modificar  cliente" + "\n4. Eliminar cliente");
+							+ "\n2. Crear concesionario" + "\n3. Modificar  concesionario" + "\n4. Eliminar concesionario" + "\n5. Volver Atrás");
 					eleccion = Integer.parseInt(sc.nextLine());
 
 					switch (eleccion) {
@@ -44,21 +44,24 @@ public class Concesionario {
 					case 2: {
 						String cif = "";
 						String nombre = "";
+						String localidad="";
 
 						System.out.println("Dame el CIF: ");
 						cif = sc.nextLine();
 						System.out.println("Dame el nombre: ");
 						nombre = sc.nextLine();
-						aniadir(conexion, cif, nombre);
+						System.out.println("Dame la localidad: ");
+						localidad = sc.nextLine();
+						aniadir(conexion, cif, nombre,localidad);
 
 						break;
 					}
 					case 3: {
 						int id;
-						String cif, name;
+						String cif, name, localidad;
 						System.out.println("Dame el ID ");
 						id = Integer.parseInt(sc.nextLine());
-						ResultSet rs =  conexion.createStatement().executeQuery("select * from cliente where id=" + id);
+						ResultSet rs =  conexion.createStatement().executeQuery("select * from concesionario where id=" + id);
 						if (!rs.next()) {
 							System.err.println("Error, el ID no es valido");
 							break;
@@ -67,9 +70,11 @@ public class Concesionario {
 						cif = sc.nextLine();
 						System.out.println("Dame el nombre  ");
 						name = sc.nextLine();
+						System.out.println("Dame la localidad  ");
+						localidad = sc.nextLine();
 
 					
-							modificar(conexion, id, cif, name);
+							modificar(conexion, id, cif, name, localidad);
 						
 						
 						
@@ -79,7 +84,7 @@ public class Concesionario {
 					case 4: {
 						System.out.println("Dame el ID para eliminar");
 						int id = Integer.parseInt(sc.nextLine());
-						ResultSet rs =  conexion.createStatement().executeQuery("select * from cliente where id=" + id);
+						ResultSet rs =  conexion.createStatement().executeQuery("select * from concesionario where id=" + id);
 						if (!rs.next()) {
 							System.err.println("Error, el ID no es valido");
 							break;
@@ -87,6 +92,10 @@ public class Concesionario {
 							eliminar(conexion, id);
 						
 						
+						break;
+					}
+					case 5:{
+						Programa.main(args);
 						break;
 					}
 					}
@@ -97,7 +106,7 @@ public class Concesionario {
 
 			
 
-			private static void listar(Connection conn) {
+			public static void listar(Connection conn) {
 				try {
 				
 					Class.forName("com.mysql.cj.jdbc.Driver");
@@ -115,11 +124,11 @@ public class Concesionario {
 					// recibe en forma de objeto
 					// de tipo ResultSet, que puede ser navegado para descubrir todos los registros
 					// obtenidos por la consulta
-					ResultSet rs = s.executeQuery("select * from cliente");
+					ResultSet rs = s.executeQuery("select * from concesionario");
 
 					// Navegación del objeto ResultSet
 					while (rs.next()) {
-						System.out.println(rs.getInt("id") + " " + rs.getString(2) + " " + rs.getString(3));
+						System.out.println(rs.getInt("id") + " " + rs.getString(2) + " " + rs.getString(3)+ " " + rs.getString(4));
 					}
 					// Cierre de los elementos
 					rs.close();
@@ -135,12 +144,12 @@ public class Concesionario {
 
 
 			
-			private static void aniadir(Connection conn, String cif, String n) throws SQLException {
+			private static void aniadir(Connection conn, String cif, String n, String l) throws SQLException {
 
 				Statement s = (Statement) conn.createStatement();
 
-				int filasAfectadas = s.executeUpdate("insert into tutorialjavacoches.cliente " + "(id, cif, nombre) values ("
-						+ getSiguienteIdValidoConcesionario(conn) + ", '" + cif + "','" + n + "')");
+				int filasAfectadas = s.executeUpdate("insert into tutorialjavacoches.concesionario " + "(id, cif, nombre, localidad) values ("
+						+ getSiguienteIdValidoConcesionario(conn) + ", '" + cif + "','" + n + "','" + l +"')");
 
 				System.out.println("Filas afectadas: " + filasAfectadas);
 
@@ -148,7 +157,7 @@ public class Concesionario {
 			
 			private static int getSiguienteIdValidoConcesionario(Connection conn) throws SQLException {
 				Statement s = conn.createStatement();
-				ResultSet rs = s.executeQuery("select max(id) as maximoId " + "from tutorialjavacoches.cliente");
+				ResultSet rs = s.executeQuery("select max(id) as maximoId " + "from tutorialjavacoches.concesionario");
 
 				if (rs.next()) {
 					return rs.getInt(1) + 1;
@@ -157,12 +166,13 @@ public class Concesionario {
 				return 1;
 			}
 
-			private static void modificar(Connection conn, int id, String cif, String n) throws SQLException {
+			private static void modificar(Connection conn, int id, String cif, String n, String l) throws SQLException {
 
 				Statement s = (Statement) conn.createStatement();
 
-				int filasAfectadas = s.executeUpdate("update tutorialjavacoches.cliente " + "set cif = '" + cif + "', "
-						+ "nombre = '" + n + "'\r\n" + "where id = " + id);
+				int filasAfectadas = s.executeUpdate("update tutorialjavacoches.concesionario " + "set cif = '" + cif + "', "
+						+ "nombre = '" + n + "', "
+						+ "localidad = '" + l +"'" + " where id = " + id);
 
 				System.out.println("Filas afectadas: " + filasAfectadas);
 				
@@ -175,7 +185,7 @@ public class Concesionario {
 				Statement s = (Statement) conn.createStatement(); 
 
 				int filasAfectadas = s.executeUpdate("Delete from "
-						+ "tutorialjavacoches.cliente "
+						+ "tutorialjavacoches.concesionario "
 						+ "where id = " + id);
 			   
 				System.out.println("Filas afectadas: " + filasAfectadas);

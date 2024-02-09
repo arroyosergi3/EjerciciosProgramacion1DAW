@@ -19,7 +19,7 @@ public class Coche {
 				Connection conexion = null;
 				try {
 					conexion = (Connection) DriverManager
-							.getConnection("jdbc:mysql://localhost:3310/tutorialjavaconcesionarios?serverTimezone=UTC", "root", "1234");
+							.getConnection("jdbc:mysql://localhost:3310/tutorialjavacoches?serverTimezone=UTC", "root", "1234");
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -28,8 +28,8 @@ public class Coche {
 				// TODO Auto-generated method stub
 				int eleccion = 0;
 				do {
-					System.out.println("Menú\n" + "\n0. Salir" + "\n1. Listar "
-							+ "\n2. Crear concesionario" + "\n3. Modificar  concesionario" + "\n4. Eliminar concesionario");
+					System.out.println("Menú\n" + "0. Salir" + "\n1. Listar "
+							+ "\n2. Crear coche" + "\n3. Modificar  coche" + "\n4. Eliminar coche" + "\n5. Volver Atrás");
 					eleccion = Integer.parseInt(sc.nextLine());
 
 					switch (eleccion) {
@@ -42,34 +42,48 @@ public class Coche {
 						break;
 					}
 					case 2: {
-						String cif = "";
-						String nombre = "";
-
-						System.out.println("Dame el CIF: ");
-						cif = sc.nextLine();
-						System.out.println("Dame el nombre: ");
-						nombre = sc.nextLine();
-						aniadir(conexion, cif, nombre);
+						String bastidor = "";
+						String modelo = "";
+						String color = "";
+						int idFabricante = 0;
+						Fabricante.listar(conexion);
+						System.out.println("Dame el ID del fabricante:");
+						idFabricante = Integer.parseInt(sc.nextLine());
+						System.out.println("Dame el bastidor : ");
+						bastidor = sc.nextLine();
+						System.out.println("Dame el modelo: ");
+						modelo = sc.nextLine();
+						System.out.println("Dame el color: ");
+						color = sc.nextLine();
+						aniadir(conexion, idFabricante, bastidor, modelo, color);
 
 						break;
 					}
 					case 3: {
-						int id;
-						String cif, name;
+						int id, idf;
+						String bas, mod, col;
 						System.out.println("Dame el ID ");
+						
 						id = Integer.parseInt(sc.nextLine());
-						ResultSet rs =  conexion.createStatement().executeQuery("select * from concesionario where id=" + id);
+						ResultSet rs =  conexion.createStatement().executeQuery("select * from coche where id=" + id);
 						if (!rs.next()) {
 							System.err.println("Error, el ID no es valido");
 							break;
 						}
-						System.out.println("Dame el CIF ");
-						cif = sc.nextLine();
-						System.out.println("Dame el nombre  ");
-						name = sc.nextLine();
+						Fabricante.listar(conexion);
+						System.out.println("Dame el ID del Fabricante ");
+						idf = Integer.parseInt(sc.nextLine());
+						System.out.println("Dame el bastidor ");
+						bas = sc.nextLine();
+						System.out.println("Dame el modelo  ");
+						mod = sc.nextLine();
+						System.out.println("Dame el color  ");
+						col = sc.nextLine();
 
 					
-							modificar(conexion, id, cif, name);
+							modificar(conexion, id, idf, bas, mod, col);
+							
+	
 						
 						
 						
@@ -79,7 +93,7 @@ public class Coche {
 					case 4: {
 						System.out.println("Dame el ID para eliminar");
 						int id = Integer.parseInt(sc.nextLine());
-						ResultSet rs =  conexion.createStatement().executeQuery("select * from concesionario where id=" + id);
+						ResultSet rs =  conexion.createStatement().executeQuery("select * from coche where id=" + id);
 						if (!rs.next()) {
 							System.err.println("Error, el ID no es valido");
 							break;
@@ -87,6 +101,10 @@ public class Coche {
 							eliminar(conexion, id);
 						
 						
+						break;
+					}
+					case 5:{
+						Programa.main(args);
 						break;
 					}
 					}
@@ -97,7 +115,7 @@ public class Coche {
 
 			
 
-			private static void listar(Connection conn) {
+			public static void listar(Connection conn) {
 				try {
 				
 					Class.forName("com.mysql.cj.jdbc.Driver");
@@ -115,11 +133,11 @@ public class Coche {
 					// recibe en forma de objeto
 					// de tipo ResultSet, que puede ser navegado para descubrir todos los registros
 					// obtenidos por la consulta
-					ResultSet rs = s.executeQuery("select * from concesionario");
+					ResultSet rs = s.executeQuery("select * from coche");
 
 					// Navegación del objeto ResultSet
 					while (rs.next()) {
-						System.out.println(rs.getInt("id") + " " + rs.getString(2) + " " + rs.getString(3));
+						System.out.println(rs.getInt("id") + " " + rs.getString(2) + " " + rs.getString(3)+ " " + rs.getString(4) + " " + rs.getString(5));
 					}
 					// Cierre de los elementos
 					rs.close();
@@ -135,20 +153,20 @@ public class Coche {
 
 
 			
-			private static void aniadir(Connection conn, String cif, String n) throws SQLException {
+			private static void aniadir(Connection conn,int idF, String b, String m, String c) throws SQLException {
 
 				Statement s = (Statement) conn.createStatement();
 
-				int filasAfectadas = s.executeUpdate("insert into tutorialjavaconcesionarios.concesionario " + "(id, cif, nombre) values ("
-						+ getSiguienteIdValidoConcesionario(conn) + ", '" + cif + "','" + n + "')");
+				int filasAfectadas = s.executeUpdate("insert into tutorialjavacoches.coche " + "(id, idfabricante, bastidor, modelo, color) values ("
+						+ getSiguienteIdValidocoche(conn) + ", " + idF + ", '" + b+ "','" + m + "','" + c  + "')");
 
 				System.out.println("Filas afectadas: " + filasAfectadas);
 
 			}
 			
-			private static int getSiguienteIdValidoConcesionario(Connection conn) throws SQLException {
+			private static int getSiguienteIdValidocoche(Connection conn) throws SQLException {
 				Statement s = conn.createStatement();
-				ResultSet rs = s.executeQuery("select max(id) as maximoId " + "from tutorialjavaconcesionarios.concesionario");
+				ResultSet rs = s.executeQuery("select max(id) as maximoId " + "from tutorialjavacoches.coche");
 
 				if (rs.next()) {
 					return rs.getInt(1) + 1;
@@ -157,12 +175,16 @@ public class Coche {
 				return 1;
 			}
 
-			private static void modificar(Connection conn, int id, String cif, String n) throws SQLException {
+			private static void modificar(Connection conn, int id, int idf, String b, String m, String c) throws SQLException {
 
 				Statement s = (Statement) conn.createStatement();
 
-				int filasAfectadas = s.executeUpdate("update tutorialjavaconcesionarios.concesionario " + "set cif = '" + cif + "', "
-						+ "nombre = '" + n + "'\r\n" + "where id = " + id);
+				int filasAfectadas = s.executeUpdate("update tutorialjavacoches.coche " 
+						+ "set idfabricante = '" + idf + "', "
+						+ "bastidor = '" + b+ "', "
+						+ "modelo = '" + m + "', "
+						+ "color = '" + c + "' "
+						+  " where id = " + id);
 
 				System.out.println("Filas afectadas: " + filasAfectadas);
 				
@@ -175,7 +197,7 @@ public class Coche {
 				Statement s = (Statement) conn.createStatement(); 
 
 				int filasAfectadas = s.executeUpdate("Delete from "
-						+ "tutorialjavaconcesionarios.concesionario "
+						+ "tutorialjavacoches.coche "
 						+ "where id = " + id);
 			   
 				System.out.println("Filas afectadas: " + filasAfectadas);
