@@ -20,7 +20,7 @@ public class Programa {
 			try {
 				Fabricante.main(args);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				System.out.println("Error en la tabla Fabricante");
 				e.printStackTrace();
 			}
 			break;
@@ -29,7 +29,7 @@ public class Programa {
 			try {
 				Cliente.main(args);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				System.out.println("Error en la tabla Cliente");		
 				e.printStackTrace();
 			}
 			break;
@@ -39,7 +39,7 @@ public class Programa {
 			try {
 				Concesionario.main(args);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				System.out.println("Error en la tabla Concesionario");
 				e.printStackTrace();
 			}
 			break;
@@ -49,7 +49,7 @@ public class Programa {
 			try {
 				Coche.main(args);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				System.out.println("Error en la tabla Coche");
 				e.printStackTrace();
 			}
 			break;
@@ -59,7 +59,7 @@ public class Programa {
 			try {
 				Venta.main(args);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				System.out.println("Error en la tabla Venta");
 				e.printStackTrace();
 			}
 			break;
