@@ -7,8 +7,61 @@ import java.sql.Statement;
 import java.util.Scanner;
 public class Fabricante {
 
+	
+	private int Id;
+	private String cif;
+	private String nombre;
+	
+	
+	
+	
 
 	
+
+
+		public int getId() {
+		return Id;
+	}
+
+
+
+
+	public void setId(int id) {
+		Id = id;
+	}
+
+
+
+
+
+
+
+	public String getCif() {
+		return cif;
+	}
+
+
+
+
+	public void setCif(String cif) {
+		this.cif = cif;
+	}
+
+
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
 
 
 		public static void main(String[] args) throws SQLException {
