@@ -3,6 +3,7 @@ package capitulo08.centroEducativo;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
+import capitulo08.centroEducativo.vista.Menu;
 import capitulo08.centroEducativo.vista.PanelCurso;
 import capitulo08.centroEducativo.vista.PanelEstudiante;
 import capitulo08.centroEducativo.vista.PanelMateria;
@@ -29,11 +30,14 @@ public class Principal extends JFrame{
 		PanelMateria panelMateria = new PanelMateria();
 		PanelEstudiante panelEstudiante = new PanelEstudiante();
 		PanelProfesor panelProfesor = new PanelProfesor();
+		Menu menu = new Menu();
 		
 		panelTabbed.addTab("Cursos", panelCurso);
 		panelTabbed.addTab("Materias", panelMateria);
 		panelTabbed.addTab("Estudiantes", panelEstudiante);
 		panelTabbed.addTab("Profesores", panelProfesor);
+		
+		this.setJMenuBar(menu);
 		
 		panelTabbed.setSelectedIndex(0);
 		
@@ -47,6 +51,7 @@ public class Principal extends JFrame{
 
 		Principal ventana = new Principal();
 		ventana.setVisible(true);
+		
 	}
 
 }
