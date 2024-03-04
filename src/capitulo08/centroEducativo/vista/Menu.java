@@ -26,13 +26,13 @@ public class Menu extends JMenuBar {
 		// Menú Archivo de la aplicación
         JMenu menuArchivo = new JMenu("Archivo");
         
-        menuArchivo.add(crearNuevoMenuItem("Curso", 0);
+        menuArchivo.add(crearNuevoMenuItem("Curso", 0));
         
-        menuArchivo.add(crearNuevoMenuItem("Materia",  1 );
+        menuArchivo.add(crearNuevoMenuItem("Materia",  1 ));
         
-        menuArchivo.add(crearNuevoMenuItem("Profesor", 2);
-//        menuArchivo.addSeparator();
-        menuArchivo.add(crearNuevoMenuItem("Estudiante", 3);
+        menuArchivo.add(crearNuevoMenuItem("Estudiante", 2));
+        
+        menuArchivo.add(crearNuevoMenuItem("Profesor", 3));
         
         this.add(menuArchivo);
         
@@ -47,14 +47,16 @@ public class Menu extends JMenuBar {
 	 * @return
 	 */
 	private JMenuItem crearNuevoMenuItem (String nombre, int n) {
-        
-       
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Principal.getInstance().pan
-            }
-       
-        
+		JMenuItem item = new JMenuItem(nombre);
+		item.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Principal.getInstance().getPanelTabbed().setSelectedIndex(n);
+				
+			}
+		});
+		return item;
        
 	}
 	

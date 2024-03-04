@@ -197,6 +197,9 @@ public class PanelMateria extends JPanel {
 		
 		
 	}
+	
+	
+	
 	private void cargarPrimero() {
 		Materia o = ControladorMateria.getPrimero();
 		muestraEnPantalla(o);

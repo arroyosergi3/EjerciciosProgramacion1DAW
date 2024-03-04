@@ -20,11 +20,12 @@ public class Principal extends JFrame{
 		return instance;
 	}
 	
+	JTabbedPane panelTabbed;
 	
 	public Principal() {
 		super("Gestion de centro Educativo");
 		this.setBounds(0,0,800,600);
-		JTabbedPane panelTabbed = new JTabbedPane();
+		panelTabbed = new JTabbedPane();
 		
 		PanelCurso panelCurso = new PanelCurso();
 		PanelMateria panelMateria = new PanelMateria();
@@ -47,10 +48,19 @@ public class Principal extends JFrame{
 	
 	
 	
+	
+	
+	public JTabbedPane getPanelTabbed() {
+		return panelTabbed;
+	}
+
+
+
+
+
 	public static void main(String[] args) {
 
-		Principal ventana = new Principal();
-		ventana.setVisible(true);
+		Principal.getInstance().setVisible(true);
 		
 	}
 
