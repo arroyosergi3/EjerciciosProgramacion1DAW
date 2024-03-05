@@ -49,6 +49,8 @@ public class Materia {
 	public void setFechaInicio(String fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
+	
+	
 	@Override
 	public String toString() {
 		return  nombre ;

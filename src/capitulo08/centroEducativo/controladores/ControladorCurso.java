@@ -98,6 +98,9 @@ public class ControladorCurso extends SuperControlador {
 	}
 	
 	
+	
+	
+	
 	private static Curso getEntidadFromResulSet(ResultSet rs) throws SQLException {
 		Curso o = null;
 
