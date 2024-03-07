@@ -1,11 +1,18 @@
 package capitulo08.centroEducativo.vista;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import capitulo08.centroEducativo.controladores.ConnectionManager;
+
 import capitulo08.centroEducativo.controladores.ControladorEstudiantes;
+
 import capitulo08.centroEducativo.entidades.Estudiante;
 
 import java.awt.BorderLayout;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class PanelEstudiante extends JPanel {
 
@@ -18,6 +25,7 @@ public class PanelEstudiante extends JPanel {
 	public PanelEstudiante() {
 		setLayout(new BorderLayout(0, 0));
 		this.add(panelDatos, BorderLayout.CENTER);
+		mostrarPrimero();
 
 		this.panelDatos.setRunnableMostrarPrimerRegistro(new Runnable() {
 			@Override
@@ -45,11 +53,11 @@ public class PanelEstudiante extends JPanel {
 		});
 
 		this.panelDatos.setRunnableMostrarUltimoRegistro(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				mostrarUltimo();
-				
+
 			}
 		});
 
@@ -59,6 +67,28 @@ public class PanelEstudiante extends JPanel {
 			public void run() {
 				mostrarAnterior();
 
+			}
+		});
+
+		this.panelDatos.setRunnableGuardar(new Runnable() {
+
+			@Override
+			public void run() {
+				guardar();
+
+			}
+		});
+
+		this.panelDatos.setRunnableBorrar(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					borrar(Integer.parseInt(panelDatos.getJtfId().getText()), ConnectionManager.getConexion());
+				} catch (NumberFormatException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 
@@ -96,10 +126,67 @@ public class PanelEstudiante extends JPanel {
 	}
 
 	private void mostrarEntidad(Estudiante e) {
+
 		this.panelDatos.setId(e.getId());
 		this.panelDatos.setNombre(e.getNombre());
-		
-		//ME QUEDO POR AQUI
+		this.panelDatos.setAp1(e.getApellido_1());
+		this.panelDatos.setAp2(e.getApellido_2());
+		this.panelDatos.setDni(e.getDni());
+		this.panelDatos.setDire(e.getDireccion());
+		this.panelDatos.setMail(e.getMail());
+		this.panelDatos.setTlf(e.getTelefono());
+		this.panelDatos.setSexo(e.getIdSexo());
+
+	}
+
+	private void guardar() {
+
+		try {
+			Estudiante o = new Estudiante();
+			o.setId(-1);
+			if (!this.panelDatos.getJtfId().getText().trim().equals("")) {
+				o.setId(Integer.parseInt(this.panelDatos.getJtfId().getText()));
+			}
+			o.setNombre(this.panelDatos.getJtfNombre().getText());
+			o.setDni(this.panelDatos.getJtfDni().getText());
+			o.setApellido_1(this.panelDatos.getJtfPrimApe().getText());
+			o.setApellido_2(this.panelDatos.getJtfSegApe().getText());
+			o.setDireccion(this.panelDatos.getJtfDireccion().getText());
+			o.setMail(this.panelDatos.getJtfEmail().getText());
+			o.setTelefono(this.panelDatos.getJtfTelefono().getText());
+			o.setIdSexo(this.panelDatos.getSexo());
+
+			Connection conn = ConnectionManager.getConexion();
+			if (o.getId() == -1) {
+				int nuevoId = ControladorEstudiantes.insercion(o, conn);
+				this.panelDatos.getJtfId().setText("" + nuevoId);
+				JOptionPane.showMessageDialog(null, "Registro nuevo guardado con éxito");
+
+			}
+
+			else {
+				ControladorEstudiantes.modificacion(o, conn);
+				JOptionPane.showMessageDialog(null, "Registro modificado con éxito");
+
+			}
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "No se ha podido guardar o modificar el registro");
+		}
+
+	}
+
+	public static void borrar(int id, Connection conn) {
+		try {
+			PreparedStatement ps = conn.prepareStatement("" + "delete from estudiante where id = ?");
+			ps.setInt(1, id);
+
+			ps.executeUpdate();
+
+			JOptionPane.showMessageDialog(null, "Registro borrado con éxtito");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
