@@ -4,9 +4,7 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JToolBar;
 
-import capitulo08.centroEducativo.controladores.ControladorCurso;
 import capitulo08.centroEducativo.controladores.ControladorSexo;
-import capitulo08.centroEducativo.entidades.Curso;
 import capitulo08.centroEducativo.entidades.Sexo;
 
 import javax.swing.JButton;
@@ -29,6 +27,9 @@ public class PanelDatosPersonales extends JPanel {
 	private JTextField jtfNombre;
 	private JLabel lblTitulo;
 	private Runnable runnableMostrarPrimerRegistro;
+	private Runnable runnableMostrarSiguienteRegistro;
+	private Runnable runnableMostrarAnteriorRegistro;
+	private Runnable runnableMostrarUltimoRegistro;
 	private JTextField jtfPrimApe;
 	private JTextField jtfSegApe;
 	private JTextField jtfDni;
@@ -54,6 +55,45 @@ public class PanelDatosPersonales extends JPanel {
 		});
 		btnPrimero.setIcon(new ImageIcon(PanelDatosPersonales.class.getResource("/tutorialJava/capitulo9_AWT_SWING/res/gotostart.png")));
 		toolBar.add(btnPrimero);
+		
+		JButton btnAnterior = new JButton("");
+		btnAnterior.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				runnableMostrarAnteriorRegistro.run();
+			}
+		});
+		btnAnterior.setIcon(new ImageIcon(PanelDatosPersonales.class.getResource("/capitulo08/centroEducativo/res/previous.png")));
+		toolBar.add(btnAnterior);
+		
+		JButton btnSiguiente = new JButton("");
+		btnSiguiente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				runnableMostrarSiguienteRegistro.run();
+			}
+		});
+		btnSiguiente.setIcon(new ImageIcon(PanelDatosPersonales.class.getResource("/capitulo08/centroEducativo/res/next.png")));
+		toolBar.add(btnSiguiente);
+		
+		JButton btnUltimo = new JButton("");
+		btnUltimo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				runnableMostrarUltimoRegistro.run();
+			}
+		});
+		btnUltimo.setIcon(new ImageIcon(PanelDatosPersonales.class.getResource("/tutorialJava/capitulo9_AWT_SWING/res/gotoend.png")));
+		toolBar.add(btnUltimo);
+		
+		JButton btnNuevo = new JButton("");
+		btnNuevo.setIcon(new ImageIcon(PanelDatosPersonales.class.getResource("/tutorialJava/capitulo9_AWT_SWING/res/nuevo.png")));
+		toolBar.add(btnNuevo);
+		
+		JButton btnGuardar = new JButton("");
+		btnGuardar.setIcon(new ImageIcon(PanelDatosPersonales.class.getResource("/tutorialJava/capitulo9_AWT_SWING/res/guardar.png")));
+		toolBar.add(btnGuardar);
+		
+		JButton btnEliminar = new JButton("");
+		btnEliminar.setIcon(new ImageIcon(PanelDatosPersonales.class.getResource("/tutorialJava/capitulo9_AWT_SWING/res/eliminar.png")));
+		toolBar.add(btnEliminar);
 		
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
@@ -250,9 +290,96 @@ public class PanelDatosPersonales extends JPanel {
 	 * 
 	 * @return
 	 */
+	public String getNombre () {
+		return jtfNombre.getText();
+	}
+	
+	public void setNombre (String  n) {
+		this.jtfNombre.setText("" + n);
+	}
+	
+	
+	public String getAp1 () {
+		return jtfPrimApe.getText();
+	}
+	
+	public void setAp1 (String n) {
+		this.jtfPrimApe.setText("" + n);
+	}
+	
+	public String getAp2 () {
+		return jtfSegApe.getText();
+	}
+	
+	public void setAp2 (String n) {
+		this.jtfSegApe.setText("" + n);
+	}
+	
+	public String getDire () {
+		return jtfDireccion.getText();
+	}
+	
+	public void setDire (String n) {
+		this.jtfDireccion.setText("" + n);
+	}
+	
+	public String getDni () {
+		return jtfDni.getText();
+	}
+	
+	public void setDni (String n) {
+		this.jtfDni.setText("" + n);
+	}
+	
+	public String getMail () {
+		return jtfEmail.getText();
+	}
+	
+	public void setMail (String n) {
+		this.jtfEmail.setText("" + n);
+	}
+	
+	public String getTlf () {
+		return jtfTelefono.getText();
+	}
+	
+	public void setTlf (String n) {
+		this.jtfTelefono.setText("" + n);
+	}
+	
+	//ME QUEDO POR AQUI
+	
+//	public int getSexo () {
+//		return jcbSexo.setSelectedIndex(Integer.parseInt(TOOL_TIP_TEXT_KEY));
+//	}
+//	
+	public void setSexo (String n) {
+		this.jtfPrimApe.setText("" + n);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getId () {
 		return Integer.parseInt(this.jtfId.getText());
 	}
+	
+	
 
 	public Runnable getRunnableMostrarPrimerRegistro() {
 		return runnableMostrarPrimerRegistro;
@@ -263,6 +390,37 @@ public class PanelDatosPersonales extends JPanel {
 	}
 	
 	
+	
+	
+	
+	
+	
+
+
+	public Runnable getRunnableMostrarSiguienteRegistro() {
+		return runnableMostrarSiguienteRegistro;
+	}
+
+	public void setRunnableMostrarSiguienteRegistro(Runnable runnableMostrarSiguienteRegistro) {
+		this.runnableMostrarSiguienteRegistro = runnableMostrarSiguienteRegistro;
+	}
+
+	public Runnable getRunnableMostrarAnteriorRegistro() {
+		return runnableMostrarAnteriorRegistro;
+	}
+
+	public void setRunnableMostrarAnteriorRegistro(Runnable runnableMostrarAnteriorRegistro) {
+		this.runnableMostrarAnteriorRegistro = runnableMostrarAnteriorRegistro;
+	}
+
+	public Runnable getRunnableMostrarUltimoRegistro() {
+		return runnableMostrarUltimoRegistro;
+	}
+
+	public void setRunnableMostrarUltimoRegistro(Runnable runnableMostrarUltimoRegistro) {
+		this.runnableMostrarUltimoRegistro = runnableMostrarUltimoRegistro;
+	}
+
 	private void cargarTodosSexos() {
 		List <Sexo> l = ControladorSexo.getTodos();
 		for(Sexo o : l) {

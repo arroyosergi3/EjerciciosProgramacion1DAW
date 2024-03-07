@@ -4,14 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
-
 public class ConnectionManager {
 
 	private static Connection conexion = null;
-	
-	
-	public static Connection getConexion () throws SQLException {
+
+	public static Connection getConexion() throws SQLException {
 		// Si es la primera vez que accedemos a la conexión, debemos instanciarla
 		if (conexion == null) {
 			conectar();
@@ -20,26 +17,27 @@ public class ConnectionManager {
 		while (!conexion.isValid(5)) {
 			conectar();
 		}
-		
+
 		return conexion;
 	}
-	
-	
+
 	/**
 	 * 
 	 * @throws SQLException
 	 */
-	private static void conectar () throws SQLException {
+	private static void conectar() throws SQLException {
 		try {
-			// A través de la siguiente línea comprobamos si tenemos acceso al driver MySQL, si no fuera así
+			// A través de la siguiente línea comprobamos si tenemos acceso al driver MySQL,
+			// si no fuera así
 			// no podemos trabajar con esa BBDD.
 			Class.forName("com.mysql.cj.jdbc.Driver");
-		   
-			// Necesitamos obtener un acceso a la BBDD, eso se materializa en un objeto de tipo Connection, al cual
+
+			// Necesitamos obtener un acceso a la BBDD, eso se materializa en un objeto de
+			// tipo Connection, al cual
 			// le tenemos que pasar los parámetros de conexión.
-			conexion = (Connection) DriverManager.getConnection ("jdbc:mysql://localhost:3310/centro?serverTimezone=UTC","root", "1234");
-		}
-		catch (ClassNotFoundException ex) {
+			conexion = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3310/centro?serverTimezone=UTC",
+					"root", "1234");
+		} catch (ClassNotFoundException ex) {
 			System.out.println("Imposible acceder al driver Mysql");
 		}
 	}

@@ -12,6 +12,8 @@ public class Ejercicio04_Dates {
 	
     public static void main(String[] args) {
         String date = JOptionPane.showInputDialog("Introduce una fecha (dias/mes/año hh:mm:ss)");
+        
+        //date == fecha en String
         Date fecha = null;
 
         try {

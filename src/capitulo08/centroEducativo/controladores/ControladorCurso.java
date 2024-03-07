@@ -114,47 +114,11 @@ public class ControladorCurso extends SuperControlador {
 		return o;
 	}
 	
-	public static void nuevoCurso () {
-		Scanner sc = new Scanner(System.in);
-		String des;
-		int nuevoIdDisponible;
-		
-		System.out.println("Creación de un nuevo curso");
-		System.out.println("Dame los años del curso:");
-		des = sc.nextLine();
-		
-		sc.close();
-		try {
-			Statement s = ConnectionManager.getConexion().createStatement();
-			nuevoIdDisponible = maxIdEnTabla("curso");
-			if (nuevoIdDisponible != -1) {
-				int registrosAfectados = s.executeUpdate(
-						"insert into curso values (" + nuevoIdDisponible + ",'" + des + "')");
-				System.out.println(registrosAfectados + " registros insertados ");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 	
-	public static int maxIdEnTabla(String nombreTabla) {
-		try {
-			Statement s = ConnectionManager.getConexion().createStatement();
-			ResultSet rs = s.executeQuery("Select max(id) from " + nombreTabla);
-			
-			if (rs.next()) {
-				return rs.getInt(1) + 1;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return -1; 		
-	}
 	
 	public static int insercion (Curso o, Connection conn) {
-		int nuevoId = maxIdEnTabla("curso");
+		int nuevoId = SuperControlador.maxIdEnTabla("curso");
 		try {
 			PreparedStatement ps = conn.prepareStatement(""+ "insert into curso (id, descripcion) "
 		+ "values (?, ?)");

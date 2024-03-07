@@ -21,16 +21,92 @@ public class Principal extends JFrame{
 	}
 	
 	JTabbedPane panelTabbed;
+	PanelCurso panelCurso;
+	PanelMateria panelMateria;
+	PanelEstudiante panelEstudiante;
+	PanelProfesor panelProfesor;
 	
+	public PanelCurso getPanelCurso() {
+		return panelCurso;
+	}
+
+
+
+
+
+	public void setPanelCurso(PanelCurso panelCurso) {
+		this.panelCurso = panelCurso;
+	}
+
+
+
+
+
+	public PanelMateria getPanelMateria() {
+		return panelMateria;
+	}
+
+
+
+
+
+	public void setPanelMateria(PanelMateria panelMateria) {
+		this.panelMateria = panelMateria;
+	}
+
+
+
+
+
+	public PanelEstudiante getPanelEstudiante() {
+		return panelEstudiante;
+	}
+
+
+
+
+
+	public void setPanelEstudiante(PanelEstudiante panelEstudiante) {
+		this.panelEstudiante = panelEstudiante;
+	}
+
+
+
+
+
+	public PanelProfesor getPanelProfesor() {
+		return panelProfesor;
+	}
+
+
+
+
+
+	public void setPanelProfesor(PanelProfesor panelProfesor) {
+		this.panelProfesor = panelProfesor;
+	}
+
+
+
+
+
+	public void setPanelTabbed(JTabbedPane panelTabbed) {
+		this.panelTabbed = panelTabbed;
+	}
+
+
+
+
+
 	public Principal() {
 		super("Gestion de centro Educativo");
 		this.setBounds(0,0,800,600);
 		panelTabbed = new JTabbedPane();
 		
-		PanelCurso panelCurso = new PanelCurso();
-		PanelMateria panelMateria = new PanelMateria();
-		PanelEstudiante panelEstudiante = new PanelEstudiante();
-		PanelProfesor panelProfesor = new PanelProfesor();
+		 panelCurso = new PanelCurso();
+		 panelMateria = new PanelMateria();
+		 panelEstudiante = new PanelEstudiante();
+		 panelProfesor = new PanelProfesor();
 		Menu menu = new Menu();
 		
 		panelTabbed.addTab("Cursos", panelCurso);

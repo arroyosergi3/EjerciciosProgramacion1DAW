@@ -2,9 +2,22 @@ package capitulo08.centroEducativo.entidades;
 
 public class Estudiante {
 
-	private int id;
+	private int id, idSexo;
 	private String nombre, apellido_1, apellido_2, dni, direccion, mail, telefono;
 	
+	
+	public int getIdSexo() {
+		return idSexo;
+	}
+
+
+
+	public void setIdSexo(int idSexo) {
+		this.idSexo = idSexo;
+	}
+
+
+
 	public Estudiante() {
 		super();
 	}
