@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import capitulo08.centroEducativo.controladores.ConnectionManager;
 
 import capitulo08.centroEducativo.controladores.ControladorEstudiantes;
-
+import capitulo08.centroEducativo.controladores.ControladorSexo;
 import capitulo08.centroEducativo.entidades.Estudiante;
 
 import java.awt.BorderLayout;
@@ -127,15 +127,15 @@ public class PanelEstudiante extends JPanel {
 
 	private void mostrarEntidad(Estudiante e) {
 
-		this.panelDatos.setId(e.getId());
-		this.panelDatos.setNombre(e.getNombre());
-		this.panelDatos.setAp1(e.getApellido_1());
-		this.panelDatos.setAp2(e.getApellido_2());
-		this.panelDatos.setDni(e.getDni());
-		this.panelDatos.setDire(e.getDireccion());
-		this.panelDatos.setMail(e.getMail());
-		this.panelDatos.setTlf(e.getTelefono());
-		this.panelDatos.setSexo(e.getIdSexo());
+		this.panelDatos.getJtfId().setText(String.valueOf(e.getId()));
+		this.panelDatos.getJtfNombre().setText(e.getNombre());
+		this.panelDatos.getJtfPrimApe().setText(e.getApellido_1());
+		this.panelDatos.getJtfSegApe().setText(e.getApellido_2());
+		this.panelDatos.getJtfDni().setText(e.getDni());
+		this.panelDatos.getJtfDireccion().setText(e.getDireccion());
+		this.panelDatos.getJtfEmail().setText(e.getMail());
+		this.panelDatos.getJtfTelefono().setText(e.getTelefono());
+		this.panelDatos.getJcbSexo().setSelectedItem(ControladorSexo.getSexo(e.getIdSexo()));
 
 	}
 
@@ -147,6 +147,7 @@ public class PanelEstudiante extends JPanel {
 			if (!this.panelDatos.getJtfId().getText().trim().equals("")) {
 				o.setId(Integer.parseInt(this.panelDatos.getJtfId().getText()));
 			}
+			
 			o.setNombre(this.panelDatos.getJtfNombre().getText());
 			o.setDni(this.panelDatos.getJtfDni().getText());
 			o.setApellido_1(this.panelDatos.getJtfPrimApe().getText());
@@ -156,6 +157,9 @@ public class PanelEstudiante extends JPanel {
 			o.setTelefono(this.panelDatos.getJtfTelefono().getText());
 			o.setIdSexo(this.panelDatos.getSexo());
 
+			
+			
+			
 			Connection conn = ConnectionManager.getConexion();
 			if (o.getId() == -1) {
 				int nuevoId = ControladorEstudiantes.insercion(o, conn);
@@ -169,9 +173,11 @@ public class PanelEstudiante extends JPanel {
 				JOptionPane.showMessageDialog(null, "Registro modificado con éxito");
 
 			}
+			
 
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "No se ha podido guardar o modificar el registro");
+			e.printStackTrace();
 		}
 
 	}

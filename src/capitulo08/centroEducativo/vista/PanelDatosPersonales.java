@@ -387,6 +387,14 @@ public class PanelDatosPersonales extends JPanel {
 		;
 	}
 
+	public JComboBox<Sexo> getJcbSexo() {
+		return jcbSexo;
+	}
+
+	public void setJcbSexo(JComboBox<Sexo> jcbSexo) {
+		this.jcbSexo = jcbSexo;
+	}
+
 	/**
 	 * 
 	 * @return
@@ -518,13 +526,7 @@ public class PanelDatosPersonales extends JPanel {
 		this.jtfTelefono = jtfTelefono;
 	}
 
-	public JComboBox<Sexo> getJcbSexo() {
-		return jcbSexo;
-	}
-
-	public void setJcbSexo(JComboBox<Sexo> jcbSexo) {
-		this.jcbSexo = jcbSexo;
-	}
+	
 
 	private void cargarTodosSexos() {
 		List<Sexo> l = ControladorSexo.getTodos();
