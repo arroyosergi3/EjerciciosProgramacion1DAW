@@ -13,6 +13,8 @@ import java.awt.BorderLayout;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PanelEstudiante extends JPanel {
 
@@ -24,6 +26,11 @@ public class PanelEstudiante extends JPanel {
 	 */
 	public PanelEstudiante() {
 		setLayout(new BorderLayout(0, 0));
+		panelDatos.getJcbSexo().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			}
+		});
 		this.add(panelDatos, BorderLayout.CENTER);
 		mostrarPrimero();
 

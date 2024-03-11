@@ -413,7 +413,7 @@ public class PanelPortatil extends JPanel {
 
 	private void cargaCursoEnPantalla(Portatil o) {
 		if (o != null) {
-			Marca m = ControladorMarca.seleccionarItemJComboBox(o.getIdMarca());
+	
 			if (o != null) {
 				jtfId.setText("" + o.getId());
 				jtfModelo.setText("" + o.getModelo());
@@ -428,8 +428,13 @@ public class PanelPortatil extends JPanel {
 					jtfFechaVenta.setText("");
 				}
 				seleccionBoton(o.getnProc());
-				jcbMarca.setSelectedItem(m);
 				
+				for (int i = 0; i < jcbMarca.getItemCount(); i++) {
+					if (jcbMarca.getItemAt(i).getId() == o.getIdMarca()) {
+						jcbMarca.setSelectedIndex(i);
+					}
+				}
+
 		}
 		
 			

@@ -560,5 +560,8 @@ public class PanelDatosPersonales extends JPanel {
 	
 	
 	
+	
+	
+	
 
 }
