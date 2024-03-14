@@ -139,7 +139,11 @@ public class PanelProfesor extends JPanel {
 		this.panelDatos.setDire(e.getDireccion());
 		this.panelDatos.setMail(e.getMail());
 		this.panelDatos.setTlf(e.getTelefono());
-		this.panelDatos.setSexo(e.getIdSexo());
+		for (int i = 0; i < this.panelDatos.getJcbSexo().getItemCount(); i++) {
+			if (this.panelDatos.getJcbSexo().getItemAt(i).getId() == e.getIdSexo()) {
+			this.panelDatos.getJcbSexo().setSelectedIndex(i);
+			}
+			}
 		
 		
 		

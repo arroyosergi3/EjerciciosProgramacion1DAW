@@ -381,11 +381,7 @@ public class PanelDatosPersonales extends JPanel {
 		return o.getId();
 	}
 
-	public void setSexo(int n) {
-		Sexo o = ControladorSexo.getSexo(n);
-		this.jcbSexo.setSelectedItem(o);
-		;
-	}
+	
 
 	public JComboBox<Sexo> getJcbSexo() {
 		return jcbSexo;

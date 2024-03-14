@@ -142,7 +142,11 @@ public class PanelEstudiante extends JPanel {
 		this.panelDatos.getJtfDireccion().setText(e.getDireccion());
 		this.panelDatos.getJtfEmail().setText(e.getMail());
 		this.panelDatos.getJtfTelefono().setText(e.getTelefono());
-		this.panelDatos.getJcbSexo().setSelectedItem(ControladorSexo.getSexo(e.getIdSexo()));
+		for (int i = 0; i < this.panelDatos.getJcbSexo().getItemCount(); i++) {
+			if (this.panelDatos.getJcbSexo().getItemAt(i).getId() == e.getIdSexo()) {
+			this.panelDatos.getJcbSexo().setSelectedIndex(i);
+			}
+			}
 
 	}
 
@@ -163,7 +167,7 @@ public class PanelEstudiante extends JPanel {
 			o.setMail(this.panelDatos.getJtfEmail().getText());
 			o.setTelefono(this.panelDatos.getJtfTelefono().getText());
 			o.setIdSexo(this.panelDatos.getSexo());
-
+			
 			
 			
 			

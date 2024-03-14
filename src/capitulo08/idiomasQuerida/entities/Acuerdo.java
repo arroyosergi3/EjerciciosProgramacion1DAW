@@ -4,6 +4,7 @@ public class Acuerdo {
 
 	private int id, idIdioma;
 	private String descripcion;
+	
 	public int getId() {
 		return id;
 	}
