@@ -3,6 +3,7 @@ package capitulo08.centroEducativo.vista;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JToolBar;
+import javax.swing.filechooser.FileFilter;
 
 import capitulo08.centroEducativo.controladores.ControladorSexo;
 import capitulo08.centroEducativo.entidades.Sexo;
@@ -16,9 +17,13 @@ import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.nio.file.Files;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JScrollPane;
 
 public class PanelDatosPersonales extends JPanel {
 
@@ -37,6 +42,10 @@ public class PanelDatosPersonales extends JPanel {
 	private JTextField jtfEmail;
 	private JTextField jtfTelefono;
 	private JComboBox<Sexo> jcbSexo;
+	private JScrollPane jspImagen;
+
+	
+	private byte[] imagenEnArrayDeBytes;
 	
 	private JButton btnNuevo_1;
 	private Runnable runnableGuardar;
@@ -125,9 +134,9 @@ public class PanelDatosPersonales extends JPanel {
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 0, 0, 0 };
+		gbl_panel.columnWidths = new int[] { 0, 0, 0, 0 };
 		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 1.0, Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
@@ -135,7 +144,7 @@ public class PanelDatosPersonales extends JPanel {
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 17));
 		GridBagConstraints gbc_lblTitulo = new GridBagConstraints();
 		gbc_lblTitulo.insets = new Insets(0, 0, 5, 0);
-		gbc_lblTitulo.gridwidth = 2;
+		gbc_lblTitulo.gridwidth = 3;
 		gbc_lblTitulo.gridx = 0;
 		gbc_lblTitulo.gridy = 0;
 		panel.add(lblTitulo, gbc_lblTitulo);
@@ -150,12 +159,21 @@ public class PanelDatosPersonales extends JPanel {
 
 		jtfId = new JTextField();
 		GridBagConstraints gbc_jtfId = new GridBagConstraints();
-		gbc_jtfId.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfId.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfId.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfId.gridx = 1;
 		gbc_jtfId.gridy = 1;
 		panel.add(jtfId, gbc_jtfId);
 		jtfId.setColumns(10);
+		
+		 jspImagen = new JScrollPane();
+		 GridBagConstraints gbc_jspImagen = new GridBagConstraints();
+		 gbc_jspImagen.gridheight = 4;
+		 gbc_jspImagen.insets = new Insets(0, 0, 5, 0);
+		 gbc_jspImagen.fill = GridBagConstraints.BOTH;
+		 gbc_jspImagen.gridx = 2;
+		 gbc_jspImagen.gridy = 1;
+		 panel.add(jspImagen, gbc_jspImagen);
 
 		JLabel lblNewLabel_2 = new JLabel("Nombre:");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -167,7 +185,7 @@ public class PanelDatosPersonales extends JPanel {
 
 		jtfNombre = new JTextField();
 		GridBagConstraints gbc_jtfNombre = new GridBagConstraints();
-		gbc_jtfNombre.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfNombre.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfNombre.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfNombre.gridx = 1;
 		gbc_jtfNombre.gridy = 2;
@@ -184,7 +202,7 @@ public class PanelDatosPersonales extends JPanel {
 
 		jtfPrimApe = new JTextField();
 		GridBagConstraints gbc_jtfPrimApe = new GridBagConstraints();
-		gbc_jtfPrimApe.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfPrimApe.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfPrimApe.anchor = GridBagConstraints.NORTH;
 		gbc_jtfPrimApe.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfPrimApe.gridx = 1;
@@ -202,7 +220,7 @@ public class PanelDatosPersonales extends JPanel {
 
 		jtfSegApe = new JTextField();
 		GridBagConstraints gbc_jtfSegApe = new GridBagConstraints();
-		gbc_jtfSegApe.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfSegApe.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfSegApe.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfSegApe.gridx = 1;
 		gbc_jtfSegApe.gridy = 4;
@@ -219,11 +237,23 @@ public class PanelDatosPersonales extends JPanel {
 
 		jcbSexo = new JComboBox<Sexo>();
 		GridBagConstraints gbc_jcbSexo = new GridBagConstraints();
-		gbc_jcbSexo.insets = new Insets(0, 0, 5, 0);
+		gbc_jcbSexo.insets = new Insets(0, 0, 5, 5);
 		gbc_jcbSexo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jcbSexo.gridx = 1;
 		gbc_jcbSexo.gridy = 5;
 		panel.add(jcbSexo, gbc_jcbSexo);
+		
+		JButton btnFileChooser = new JButton("Seleccionar Imagen");
+		btnFileChooser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				seleccionaImagen();
+			}
+		});
+		GridBagConstraints gbc_btnFileChooser = new GridBagConstraints();
+		gbc_btnFileChooser.insets = new Insets(0, 0, 5, 0);
+		gbc_btnFileChooser.gridx = 2;
+		gbc_btnFileChooser.gridy = 5;
+		panel.add(btnFileChooser, gbc_btnFileChooser);
 
 		JLabel lblDni = new JLabel("DNI");
 		GridBagConstraints gbc_lblDni = new GridBagConstraints();
@@ -235,7 +265,7 @@ public class PanelDatosPersonales extends JPanel {
 
 		jtfDni = new JTextField();
 		GridBagConstraints gbc_jtfDni = new GridBagConstraints();
-		gbc_jtfDni.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfDni.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfDni.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfDni.gridx = 1;
 		gbc_jtfDni.gridy = 6;
@@ -252,7 +282,7 @@ public class PanelDatosPersonales extends JPanel {
 
 		jtfDireccion = new JTextField();
 		GridBagConstraints gbc_jtfDireccion = new GridBagConstraints();
-		gbc_jtfDireccion.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfDireccion.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfDireccion.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfDireccion.gridx = 1;
 		gbc_jtfDireccion.gridy = 7;
@@ -269,7 +299,7 @@ public class PanelDatosPersonales extends JPanel {
 
 		jtfEmail = new JTextField();
 		GridBagConstraints gbc_jtfEmail = new GridBagConstraints();
-		gbc_jtfEmail.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfEmail.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfEmail.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfEmail.gridx = 1;
 		gbc_jtfEmail.gridy = 8;
@@ -286,7 +316,7 @@ public class PanelDatosPersonales extends JPanel {
 
 		jtfTelefono = new JTextField();
 		GridBagConstraints gbc_jtfTelefono = new GridBagConstraints();
-		gbc_jtfTelefono.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfTelefono.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfTelefono.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfTelefono.gridx = 1;
 		gbc_jtfTelefono.gridy = 9;
@@ -296,7 +326,69 @@ public class PanelDatosPersonales extends JPanel {
 		cargarTodosSexos();
 
 	}
+	
+	
+	public void seleccionaImagen() {
+		JFileChooser jfileChooser = new JFileChooser();
+		
+		// Configurando el componente
+		
+		// Tipo de selección que se hace en el diálogo
+		jfileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); // Sólo selecciona ficheros
 
+		// Filtro del tipo de ficheros que puede abrir
+		jfileChooser.setFileFilter(new FileFilter() {
+			
+			@Override
+			public String getDescription() {
+				return "Archivos de imagen *.jpg *.png *.gif";
+			}
+			
+			@Override
+			public boolean accept(File f) {
+				if (f.isDirectory() || (f.isFile() &&
+						(f.getAbsolutePath().toLowerCase().endsWith(".jpg") || 
+								f.getAbsolutePath().toLowerCase().endsWith(".jpeg")|| 
+								f.getAbsolutePath().toLowerCase().endsWith(".png")|| 
+								f.getAbsolutePath().toLowerCase().endsWith(".gif")))) 
+					return true;
+				return false;
+			}
+		});
+		
+		// Abro el diálogo para la elección del usuario
+		int seleccionUsuario = jfileChooser.showOpenDialog(null);
+		
+		if (seleccionUsuario == JFileChooser.APPROVE_OPTION) {
+			File fichero = jfileChooser.getSelectedFile();
+			
+			if (fichero.isFile()) {
+				try {
+					
+					this.imagenEnArrayDeBytes = Files.readAllBytes(fichero.toPath());
+					mostrarImagen();
+				}
+				catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+	}
+
+	
+	private void mostrarImagen () {
+		if (imagenEnArrayDeBytes != null && imagenEnArrayDeBytes.length > 0) {
+			ImageIcon icono = new ImageIcon(imagenEnArrayDeBytes);
+			JLabel lblIcono = new JLabel(icono);
+			this.jspImagen.setViewportView(lblIcono);
+		}
+		else {
+			JLabel lblIcono = new JLabel("Sin imagen");
+			this.jspImagen.setViewportView(lblIcono);
+		}
+
+	}
+	
 	/**
 	 * 
 	 * @param newTitulo
@@ -324,6 +416,22 @@ public class PanelDatosPersonales extends JPanel {
 	public void setNombre(String n) {
 		this.jtfNombre.setText("" + n);
 	}
+	
+	public byte[] getImagen() {
+		return  this.imagenEnArrayDeBytes;
+	}
+
+	public void setImagen(byte[] img) {
+		if (img != null && img.length > 0) {
+		ImageIcon icono = new ImageIcon(img);
+		JLabel lblIcono = new JLabel(icono);
+		jspImagen.setViewportView(lblIcono);
+		}else {
+		JLabel lblIcono = new JLabel("Sin imagen");
+		jspImagen.setViewportView(lblIcono);
+		}
+		}
+	
 
 	public String getAp1() {
 		return jtfPrimApe.getText();

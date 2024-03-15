@@ -138,8 +138,8 @@ public class ControladorEstudiantes {
 	public static int insercion (Estudiante o, Connection conn) {
 		int nuevoId = SuperControlador.maxIdEnTabla("estudiante");
 		try {
-			PreparedStatement ps = conn.prepareStatement(""+ "insert into estudiante (id, nombre, apellido1, apellido2, dni, direccion, email, telefono, sexo_id) "
-		+ "values (?, ?, ?, ?, ?, ?, ?, ?)");
+			PreparedStatement ps = conn.prepareStatement(""+ "insert into estudiante (id, nombre, apellido1, apellido2, dni, direccion, email, telefono, sexo_id, imagen) "
+		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
 			ps.setInt(1, nuevoId);
 			ps.setString(2, o.getNombre());
 			ps.setString(3, o.getApellido_1());
@@ -149,6 +149,7 @@ public class ControladorEstudiantes {
 			ps.setString(7, o.getMail());
 			ps.setString(8, o.getTelefono());
 			ps.setInt(9, o.getIdSexo());
+			ps.setBytes(10, o.getImagen());
 
 			ps.execute();
 			return nuevoId;
@@ -165,7 +166,7 @@ public class ControladorEstudiantes {
 	
 	public static void modificacion (Estudiante  o, Connection conn) {
 		try {
-			PreparedStatement ps = conn.prepareStatement(""+ "update estudiante set nombre=?, apellido1=?, apellido2=?, dni=?, direccion=?, email=?, telefono=?, sexo_id=? where id=?");
+			PreparedStatement ps = conn.prepareStatement(""+ "update estudiante set nombre=?, apellido1=?, apellido2=?, dni=?, direccion=?, email=?, telefono=?, sexo_id=?, imagen=? where id=?");
 			ps.setString(1, o.getNombre());
 			ps.setString(2, o.getApellido_1());
 			ps.setString(3, o.getApellido_2());
@@ -175,6 +176,7 @@ public class ControladorEstudiantes {
 			ps.setString(7, o.getTelefono());
 			ps.setInt(8, o.getIdSexo());
 			ps.setInt(9, o.getId());
+			ps.setBytes(10, o.getImagen());
 			ps.execute();
 			
 			

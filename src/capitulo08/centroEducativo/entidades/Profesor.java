@@ -3,7 +3,25 @@ package capitulo08.centroEducativo.entidades;
 public class Profesor {
 	private int id, idSexo;
 	private String nombre, apellido_1, apellido_2, dni, direccion, mail, telefono;
+	private byte[] imagen;
 	
+	
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+
+
+
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
+	}
+
+
+
+
+
 	public Profesor() {
 		super();
 	}

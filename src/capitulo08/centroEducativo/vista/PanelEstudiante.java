@@ -134,19 +134,22 @@ public class PanelEstudiante extends JPanel {
 
 	private void mostrarEntidad(Estudiante e) {
 
-		this.panelDatos.getJtfId().setText(String.valueOf(e.getId()));
-		this.panelDatos.getJtfNombre().setText(e.getNombre());
-		this.panelDatos.getJtfPrimApe().setText(e.getApellido_1());
-		this.panelDatos.getJtfSegApe().setText(e.getApellido_2());
-		this.panelDatos.getJtfDni().setText(e.getDni());
-		this.panelDatos.getJtfDireccion().setText(e.getDireccion());
-		this.panelDatos.getJtfEmail().setText(e.getMail());
-		this.panelDatos.getJtfTelefono().setText(e.getTelefono());
+		this.panelDatos.setId(e.getId());
+		this.panelDatos.setNombre(e.getNombre());
+		this.panelDatos.setAp1(e.getApellido_1());
+		this.panelDatos.setAp2(e.getApellido_2());
+		this.panelDatos.setDni(e.getDni());
+		this.panelDatos.setDire(e.getDireccion());
+		this.panelDatos.setMail(e.getMail());
+		this.panelDatos.setTlf(e.getTelefono());
 		for (int i = 0; i < this.panelDatos.getJcbSexo().getItemCount(); i++) {
 			if (this.panelDatos.getJcbSexo().getItemAt(i).getId() == e.getIdSexo()) {
 			this.panelDatos.getJcbSexo().setSelectedIndex(i);
 			}
 			}
+		this.panelDatos.setImagen(e.getImagen());
+		
+		
 
 	}
 
@@ -167,6 +170,7 @@ public class PanelEstudiante extends JPanel {
 			o.setMail(this.panelDatos.getJtfEmail().getText());
 			o.setTelefono(this.panelDatos.getJtfTelefono().getText());
 			o.setIdSexo(this.panelDatos.getSexo());
+			o.setImagen(this.panelDatos.getImagen());
 			
 			
 			
