@@ -127,6 +127,7 @@ public class ControladorEstudiantes {
 		o.setMail(rs.getString("email"));
 		o.setTelefono(rs.getString("telefono"));
 		o.setId(rs.getInt("sexo_id"));
+		o.setImagen(rs.getBytes("imagen"));
 		
 		
 		
@@ -175,8 +176,9 @@ public class ControladorEstudiantes {
 			ps.setString(6, o.getMail());
 			ps.setString(7, o.getTelefono());
 			ps.setInt(8, o.getIdSexo());
-			ps.setInt(9, o.getId());
-			ps.setBytes(10, o.getImagen());
+			ps.setBytes(9, o.getImagen());
+			ps.setInt(10, o.getId());
+			
 			ps.execute();
 			
 			
