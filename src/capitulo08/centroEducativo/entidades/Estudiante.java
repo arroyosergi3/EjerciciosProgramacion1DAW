@@ -3,12 +3,24 @@ package capitulo08.centroEducativo.entidades;
 public class Estudiante {
 
 	private int id, idSexo;
-	private String nombre, apellido_1, apellido_2, dni, direccion, mail, telefono;
+	private String nombre, apellido_1, apellido_2, dni, direccion, mail, telefono, colorFavorito;
 	private byte[] imagen;
 	
 	
 	
 	
+	public String getColorFavorito() {
+		return colorFavorito;
+	}
+
+
+
+	public void setColorFavorito(String colorFavorito) {
+		this.colorFavorito = colorFavorito;
+	}
+
+
+
 	public byte[] getImagen() {
 		return imagen;
 	}

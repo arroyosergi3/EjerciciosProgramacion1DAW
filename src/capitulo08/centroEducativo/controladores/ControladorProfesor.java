@@ -77,6 +77,8 @@ public class ControladorProfesor {
 			o.setMail(rs.getString("email"));
 			o.setTelefono(rs.getString("telefono"));
 			o.setIdSexo(rs.getInt("sexo_id"));
+			o.setImagen(rs.getBytes("imagen"));
+			o.setColorFavorito(rs.getString("colorFavorito"));
 			
 			
 
@@ -122,6 +124,8 @@ public class ControladorProfesor {
 		o.setMail(rs.getString("email"));
 		o.setTelefono(rs.getString("telefono"));
 		o.setIdSexo(rs.getInt("sexo_id"));
+		o.setImagen(rs.getBytes("imagen"));
+		o.setColorFavorito(rs.getString("colorFavorito"));
 		
 		
 		
@@ -133,8 +137,8 @@ public class ControladorProfesor {
 	public static int insercion (Profesor o, Connection conn) {
 		int nuevoId = SuperControlador.maxIdEnTabla("profesor");
 		try {
-			PreparedStatement ps = conn.prepareStatement(""+ "insert into profesor (id, nombre, apellido1, apellido2, dni, direccion, email, telefono, sexo_id) "
-		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			PreparedStatement ps = conn.prepareStatement(""+ "insert into profesor (id, nombre, apellido1, apellido2, dni, direccion, email, telefono,  sexo_id, imagen, colorFavorito) "
+		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			ps.setInt(1, nuevoId);
 			ps.setString(2, o.getNombre());
 			ps.setString(3, o.getApellido_1());
@@ -144,6 +148,8 @@ public class ControladorProfesor {
 			ps.setString(7, o.getMail());
 			ps.setString(8, o.getTelefono());
 			ps.setInt(9, o.getIdSexo());
+			ps.setBytes(10, o.getImagen());
+			ps.setString(11, o.getColorFavorito());
 
 			ps.execute();
 			return nuevoId;
@@ -160,7 +166,7 @@ public class ControladorProfesor {
 	
 	public static void modificacion (Profesor  o, Connection conn) {
 		try {
-			PreparedStatement ps = conn.prepareStatement(""+ "update profesor set nombre=?, apellido1=?, apellido2=?, dni=?, direccion=?, email=?, telefono=?, sexo_id=? where id=?");
+			PreparedStatement ps = conn.prepareStatement(""+ "update profesor set nombre=?, apellido1=?, apellido2=?, dni=?, direccion=?, email=?, telefono=?, sexo_id=?, imagen=?, colorFavorito=? where id=?");
 			ps.setString(1, o.getNombre());
 			ps.setString(2, o.getApellido_1());
 			ps.setString(3, o.getApellido_2());
@@ -169,7 +175,9 @@ public class ControladorProfesor {
 			ps.setString(6, o.getMail());
 			ps.setString(7, o.getTelefono());
 			ps.setInt(8, o.getIdSexo());
-			ps.setInt(9, o.getId());
+			ps.setBytes(9, o.getImagen());
+			ps.setString(10, o.getColorFavorito());
+			ps.setInt(11, o.getId());
 			ps.execute();
 			
 			

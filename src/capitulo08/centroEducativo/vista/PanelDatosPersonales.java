@@ -2,6 +2,8 @@ package capitulo08.centroEducativo.vista;
 
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
+
 import javax.swing.JToolBar;
 import javax.swing.filechooser.FileFilter;
 
@@ -9,6 +11,8 @@ import capitulo08.centroEducativo.controladores.ControladorSexo;
 import capitulo08.centroEducativo.entidades.Sexo;
 
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -43,6 +47,9 @@ public class PanelDatosPersonales extends JPanel {
 	private JTextField jtfTelefono;
 	private JComboBox<Sexo> jcbSexo;
 	private JScrollPane jspImagen;
+	private JColorChooser jColorChooser;
+	public JPanel panel;
+
 
 	
 	private byte[] imagenEnArrayDeBytes;
@@ -50,6 +57,7 @@ public class PanelDatosPersonales extends JPanel {
 	private JButton btnNuevo_1;
 	private Runnable runnableGuardar;
 	private Runnable runnableBorrar;
+	private JTextField jtfColorPreferido;
 
 	/**
 	 * Create the panel.
@@ -131,7 +139,7 @@ public class PanelDatosPersonales extends JPanel {
 				PanelDatosPersonales.class.getResource("/tutorialJava/capitulo9_AWT_SWING/res/eliminar.png")));
 		toolBar.add(btnEliminar);
 
-		JPanel panel = new JPanel();
+		 panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 0, 0, 0, 0 };
@@ -323,7 +331,36 @@ public class PanelDatosPersonales extends JPanel {
 		panel.add(jtfTelefono, gbc_jtfTelefono);
 		jtfTelefono.setColumns(10);
 		jtfId.setEnabled(false);
+		
+		JLabel lblColorPreferido = new JLabel("Color Preferido:");
+		GridBagConstraints gbc_lblColorPreferido = new GridBagConstraints();
+		gbc_lblColorPreferido.anchor = GridBagConstraints.EAST;
+		gbc_lblColorPreferido.insets = new Insets(0, 0, 0, 5);
+		gbc_lblColorPreferido.gridx = 0;
+		gbc_lblColorPreferido.gridy = 10;
+		panel.add(lblColorPreferido, gbc_lblColorPreferido);
+		
+		setJtfColorPreferido(new JTextField());
+		GridBagConstraints gbc_jtfColorPreferido = new GridBagConstraints();
+		gbc_jtfColorPreferido.insets = new Insets(0, 0, 0, 5);
+		gbc_jtfColorPreferido.fill = GridBagConstraints.HORIZONTAL;
+		gbc_jtfColorPreferido.gridx = 1;
+		gbc_jtfColorPreferido.gridy = 10;
+		panel.add(getJtfColorPreferido(), gbc_jtfColorPreferido);
+		getJtfColorPreferido().setColumns(10);
+		
+		JButton btnCambiarColor = new JButton("Cambiar Color");
+		btnCambiarColor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				seleccionaColor();
+			}
+		});
+		GridBagConstraints gbc_btnCambiarColor = new GridBagConstraints();
+		gbc_btnCambiarColor.gridx = 2;
+		gbc_btnCambiarColor.gridy = 10;
+		panel.add(btnCambiarColor, gbc_btnCambiarColor);
 		cargarTodosSexos();
+		
 
 	}
 	
@@ -376,19 +413,34 @@ public class PanelDatosPersonales extends JPanel {
 	}
 
 	
-	private void mostrarImagen () {
-		if (imagenEnArrayDeBytes != null && imagenEnArrayDeBytes.length > 0) {
-			ImageIcon icono = new ImageIcon(imagenEnArrayDeBytes);
-			JLabel lblIcono = new JLabel(icono);
-			this.jspImagen.setViewportView(lblIcono);
+		
+		
+			
+		
+		
+		
+	
+	
+	private void seleccionaColor () {
+		Color color = jColorChooser.showDialog(null, "Seleccione un Color", Color.gray);
+		// Si el usuario pulsa sobre aceptar, el color elegido no será nulo
+		if (color != null) {
+			String strColor = "#"+Integer.toHexString(color.getRGB()).substring(2);
+			this.getJtfColorPreferido().setText(strColor);
+			this.panel.setBackground(color);
 		}
-		else {
-			JLabel lblIcono = new JLabel("Sin imagen");
-			this.jspImagen.setViewportView(lblIcono);
-		}
-
 	}
 	
+	
+	
+	public void setColorFAvorito(String n) {
+		this.getJtfColorPreferido().setText(n);
+		
+	}
+	
+	public String GetColorFavorito() {
+		return this.getJtfColorPreferido().getText();
+	}
 	/**
 	 * 
 	 * @param newTitulo
@@ -419,19 +471,40 @@ public class PanelDatosPersonales extends JPanel {
 	
 	public byte[] getImagen() {
 		return  this.imagenEnArrayDeBytes;
+
 	}
 
 	public void setImagen(byte[] img) {
 		if (img != null && img.length > 0) {
-		ImageIcon icono = new ImageIcon(img);
-		JLabel lblIcono = new JLabel(icono);
-		jspImagen.setViewportView(lblIcono);
-		}else {
-		JLabel lblIcono = new JLabel("Sin imagen");
-		jspImagen.setViewportView(lblIcono);
+			this.imagenEnArrayDeBytes = img;
+//		ImageIcon icono = new ImageIcon(img);
+//		JLabel lblIcono = new JLabel(icono);
+//		jspImagen.setViewportView(lblIcono);
+//		}else 
+//		{
+//		JLabel lblIcono = new JLabel("Sin imagen");
+//		jspImagen.setViewportView(lblIcono);
 		}
+		else {
+			this.imagenEnArrayDeBytes = null;
+		}
+		mostrarImagen();
+
+		
 		}
 	
+	private void mostrarImagen () {
+		if (imagenEnArrayDeBytes != null && imagenEnArrayDeBytes.length > 0) {
+			ImageIcon icono = new ImageIcon(imagenEnArrayDeBytes);
+			JLabel lblIcono = new JLabel(icono);
+			this.jspImagen.setViewportView(lblIcono);
+		}
+		else {
+			JLabel lblIcono = new JLabel("Sin imagen");
+			this.jspImagen.setViewportView(lblIcono);
+		}
+
+	}
 
 	public String getAp1() {
 		return jtfPrimApe.getText();
@@ -659,6 +732,16 @@ public class PanelDatosPersonales extends JPanel {
 
 	public void setRunnableBorrar(Runnable runnableBorrar) {
 		this.runnableBorrar = runnableBorrar;
+	}
+
+
+	public JTextField getJtfColorPreferido() {
+		return jtfColorPreferido;
+	}
+
+
+	public void setJtfColorPreferido(JTextField jtfColorPreferido) {
+		this.jtfColorPreferido = jtfColorPreferido;
 	}
 	
 	

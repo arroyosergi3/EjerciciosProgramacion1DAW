@@ -10,6 +10,7 @@ import capitulo08.centroEducativo.controladores.ControladorSexo;
 import capitulo08.centroEducativo.entidades.Estudiante;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -54,6 +55,7 @@ public class PanelEstudiante extends JPanel {
 
 			@Override
 			public void run() {
+				
 				mostrarSiguiente();
 
 			}
@@ -148,9 +150,19 @@ public class PanelEstudiante extends JPanel {
 			}
 			}
 		this.panelDatos.setImagen(e.getImagen());
-		
+		this.panelDatos.setColorFAvorito(e.getColorFavorito());
+		setBackground();
 		
 
+	}
+	
+	private void setBackground() {
+		if (!this.panelDatos.getJtfColorPreferido().getText().isBlank()) {
+			Color color = Color.decode(this.panelDatos.getJtfColorPreferido().getText());
+			this.panelDatos.panel.setBackground(color);
+		} else {
+			this.panelDatos.panel.setBackground(Color.WHITE);
+		}
 	}
 
 	private void guardar() {
@@ -171,7 +183,7 @@ public class PanelEstudiante extends JPanel {
 			o.setTelefono(this.panelDatos.getJtfTelefono().getText());
 			o.setIdSexo(this.panelDatos.getSexo());
 			o.setImagen(this.panelDatos.getImagen());
-			
+			o.setColorFavorito(this.panelDatos.GetColorFavorito());
 			
 			
 			
