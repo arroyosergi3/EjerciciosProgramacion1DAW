@@ -92,6 +92,7 @@ public class PanelProfesor extends JPanel {
 			}
 		});
 		mostrarPrimero();
+		panelDatos.mostrarMenu();
 		
 	}
 
@@ -149,7 +150,8 @@ public class PanelProfesor extends JPanel {
 		this.panelDatos.setImagen(e.getImagen());
 		this.panelDatos.setColorFAvorito(e.getColorFavorito());
 		setBackground();
-		
+		this.panelDatos.mostrarMenu();
+
 	}
 	
 	private void setBackground() {

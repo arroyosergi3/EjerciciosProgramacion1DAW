@@ -1,6 +1,11 @@
 package capitulo08.centroEducativo.entidades;
 
 public class Profesor {
+	@Override
+	public String toString() {
+		return ( nombre + " "+ apellido_1 + " " + apellido_2 );
+	}
+
 	private int id, idSexo;
 	private String nombre, apellido_1, apellido_2, dni, direccion, mail, telefono, colorFavorito;
 	private byte[] imagen;

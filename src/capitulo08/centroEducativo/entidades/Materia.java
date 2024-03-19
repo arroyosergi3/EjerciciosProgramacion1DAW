@@ -2,6 +2,10 @@ package capitulo08.centroEducativo.entidades;
 
 public class Materia {
 
+	@Override
+	public String toString() {
+		return nombre ;
+	}
 	private int id;
 	private int cursoID;
 	private String nombre;

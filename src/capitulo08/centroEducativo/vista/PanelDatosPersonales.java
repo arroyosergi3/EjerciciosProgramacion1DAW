@@ -14,20 +14,32 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 
 import java.awt.GridBagLayout;
+import java.awt.Image;
+
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Insets;
 import javax.swing.JTextField;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PanelDatosPersonales extends JPanel {
 
@@ -49,11 +61,9 @@ public class PanelDatosPersonales extends JPanel {
 	private JScrollPane jspImagen;
 	private JColorChooser jColorChooser;
 	public JPanel panel;
-
-
-	
+	private int anchoImagen, altoImagen;
 	private byte[] imagenEnArrayDeBytes;
-	
+
 	private JButton btnNuevo_1;
 	private Runnable runnableGuardar;
 	private Runnable runnableBorrar;
@@ -139,7 +149,7 @@ public class PanelDatosPersonales extends JPanel {
 				PanelDatosPersonales.class.getResource("/tutorialJava/capitulo9_AWT_SWING/res/eliminar.png")));
 		toolBar.add(btnEliminar);
 
-		 panel = new JPanel();
+		panel = new JPanel();
 		add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 0, 0, 0, 0 };
@@ -173,15 +183,38 @@ public class PanelDatosPersonales extends JPanel {
 		gbc_jtfId.gridy = 1;
 		panel.add(jtfId, gbc_jtfId);
 		jtfId.setColumns(10);
-		
-		 jspImagen = new JScrollPane();
-		 GridBagConstraints gbc_jspImagen = new GridBagConstraints();
-		 gbc_jspImagen.gridheight = 4;
-		 gbc_jspImagen.insets = new Insets(0, 0, 5, 0);
-		 gbc_jspImagen.fill = GridBagConstraints.BOTH;
-		 gbc_jspImagen.gridx = 2;
-		 gbc_jspImagen.gridy = 1;
-		 panel.add(jspImagen, gbc_jspImagen);
+
+		jspImagen = new JScrollPane();
+
+		JPopupMenu popupMenu = getPopUpMenu();
+		popupMenu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				showPopup(e);
+
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+
+				showPopup(e);
+			}
+
+			private void showPopup(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					popupMenu.show(e.getComponent(), e.getX(), e.getY());
+				}
+			}
+
+		});
+		addPopup(jspImagen, popupMenu);
+		GridBagConstraints gbc_jspImagen = new GridBagConstraints();
+		gbc_jspImagen.gridheight = 4;
+		gbc_jspImagen.insets = new Insets(0, 0, 5, 0);
+		gbc_jspImagen.fill = GridBagConstraints.BOTH;
+		gbc_jspImagen.gridx = 2;
+		gbc_jspImagen.gridy = 1;
+		panel.add(jspImagen, gbc_jspImagen);
 
 		JLabel lblNewLabel_2 = new JLabel("Nombre:");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -250,7 +283,7 @@ public class PanelDatosPersonales extends JPanel {
 		gbc_jcbSexo.gridx = 1;
 		gbc_jcbSexo.gridy = 5;
 		panel.add(jcbSexo, gbc_jcbSexo);
-		
+
 		JButton btnFileChooser = new JButton("Seleccionar Imagen");
 		btnFileChooser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -331,7 +364,7 @@ public class PanelDatosPersonales extends JPanel {
 		panel.add(jtfTelefono, gbc_jtfTelefono);
 		jtfTelefono.setColumns(10);
 		jtfId.setEnabled(false);
-		
+
 		JLabel lblColorPreferido = new JLabel("Color Preferido:");
 		GridBagConstraints gbc_lblColorPreferido = new GridBagConstraints();
 		gbc_lblColorPreferido.anchor = GridBagConstraints.EAST;
@@ -339,7 +372,7 @@ public class PanelDatosPersonales extends JPanel {
 		gbc_lblColorPreferido.gridx = 0;
 		gbc_lblColorPreferido.gridy = 10;
 		panel.add(lblColorPreferido, gbc_lblColorPreferido);
-		
+
 		setJtfColorPreferido(new JTextField());
 		GridBagConstraints gbc_jtfColorPreferido = new GridBagConstraints();
 		gbc_jtfColorPreferido.insets = new Insets(0, 0, 0, 5);
@@ -348,7 +381,7 @@ public class PanelDatosPersonales extends JPanel {
 		gbc_jtfColorPreferido.gridy = 10;
 		panel.add(getJtfColorPreferido(), gbc_jtfColorPreferido);
 		getJtfColorPreferido().setColumns(10);
-		
+
 		JButton btnCambiarColor = new JButton("Cambiar Color");
 		btnCambiarColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -360,87 +393,146 @@ public class PanelDatosPersonales extends JPanel {
 		gbc_btnCambiarColor.gridy = 10;
 		panel.add(btnCambiarColor, gbc_btnCambiarColor);
 		cargarTodosSexos();
-		
 
 	}
-	
-	
+
+	public void mostrarMenu() {
+		JPopupMenu menu = getPopUpMenu();
+		jspImagen.addMouseListener(new MouseAdapter() {
+
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+
+			private void showMenu(MouseEvent e) {
+				menu.show(e.getComponent(), e.getX(), e.getY());
+			}
+
+		});
+	}
+
+	private JPopupMenu getPopUpMenu() {
+		JPopupMenu menu = new JPopupMenu();
+		JMenuItem item1 = new JMenuItem(
+				"La dimensión de la imagen es " + this.anchoImagen + "x" + this.altoImagen + " pixeles");
+		JMenuItem item2 = new JMenuItem("Cambiar Imagen");
+		menu.add(item1);
+		menu.add(item2);
+		item2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				seleccionaImagen();
+
+			}
+		});
+		return menu;
+	}
+
 	public void seleccionaImagen() {
 		JFileChooser jfileChooser = new JFileChooser();
-		
+
 		// Configurando el componente
-		
+
 		// Tipo de selección que se hace en el diálogo
 		jfileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); // Sólo selecciona ficheros
 
 		// Filtro del tipo de ficheros que puede abrir
 		jfileChooser.setFileFilter(new FileFilter() {
-			
+
 			@Override
 			public String getDescription() {
 				return "Archivos de imagen *.jpg *.png *.gif";
 			}
-			
+
 			@Override
 			public boolean accept(File f) {
-				if (f.isDirectory() || (f.isFile() &&
-						(f.getAbsolutePath().toLowerCase().endsWith(".jpg") || 
-								f.getAbsolutePath().toLowerCase().endsWith(".jpeg")|| 
-								f.getAbsolutePath().toLowerCase().endsWith(".png")|| 
-								f.getAbsolutePath().toLowerCase().endsWith(".gif")))) 
+				if (f.isDirectory() || (f.isFile() && (f.getAbsolutePath().toLowerCase().endsWith(".jpg")
+						|| f.getAbsolutePath().toLowerCase().endsWith(".jpeg")
+						|| f.getAbsolutePath().toLowerCase().endsWith(".png")
+						|| f.getAbsolutePath().toLowerCase().endsWith(".gif"))))
 					return true;
 				return false;
 			}
 		});
-		
+
 		// Abro el diálogo para la elección del usuario
 		int seleccionUsuario = jfileChooser.showOpenDialog(null);
-		
+
 		if (seleccionUsuario == JFileChooser.APPROVE_OPTION) {
 			File fichero = jfileChooser.getSelectedFile();
-			
 			if (fichero.isFile()) {
+				if (isMayorde100x100(cargarImagenComoIcono(fichero))) {
+					JOptionPane.showMessageDialog(null, "Error, la imagen es mayor de 100 x 100");
+					return;
+				}
 				try {
-					
+
 					this.imagenEnArrayDeBytes = Files.readAllBytes(fichero.toPath());
 					mostrarImagen();
-				}
-				catch (Exception ex) {
+				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
 			}
 		}
+
 	}
 
-	
-		
-		
-			
-		
-		
-		
-	
-	
-	private void seleccionaColor () {
+	public static ImageIcon cargarImagenComoIcono(File archivoImagen) {
+		try {
+			BufferedImage imagen = ImageIO.read(archivoImagen);
+			if (imagen != null) {
+				// Escalar la imagen si es necesario
+				Image imagenEscalada = imagen.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+				return new ImageIcon(imagenEscalada);
+			} else {
+				System.out.println("El archivo no contiene una imagen válida");
+				return null;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+
+
+	public boolean isMayorde100x100(ImageIcon f) {
+		if (altoImagen > 100) {
+			return true;
+		}
+		if (anchoImagen > 100) {
+			return true;
+		}
+		return false;
+	}
+
+	private void seleccionaColor() {
 		Color color = jColorChooser.showDialog(null, "Seleccione un Color", Color.gray);
 		// Si el usuario pulsa sobre aceptar, el color elegido no será nulo
 		if (color != null) {
-			String strColor = "#"+Integer.toHexString(color.getRGB()).substring(2);
+			String strColor = "#" + Integer.toHexString(color.getRGB()).substring(2);
 			this.getJtfColorPreferido().setText(strColor);
 			this.panel.setBackground(color);
 		}
 	}
-	
-	
-	
+
 	public void setColorFAvorito(String n) {
 		this.getJtfColorPreferido().setText(n);
-		
+
 	}
-	
+
 	public String GetColorFavorito() {
 		return this.getJtfColorPreferido().getText();
 	}
+
 	/**
 	 * 
 	 * @param newTitulo
@@ -468,15 +560,20 @@ public class PanelDatosPersonales extends JPanel {
 	public void setNombre(String n) {
 		this.jtfNombre.setText("" + n);
 	}
-	
+
 	public byte[] getImagen() {
-		return  this.imagenEnArrayDeBytes;
+		return this.imagenEnArrayDeBytes;
 
 	}
 
 	public void setImagen(byte[] img) {
 		if (img != null && img.length > 0) {
 			this.imagenEnArrayDeBytes = img;
+			ImageIcon icono = new ImageIcon(this.imagenEnArrayDeBytes);
+			this.anchoImagen = icono.getIconWidth();
+			this.altoImagen = icono.getIconHeight();
+			
+			
 //		ImageIcon icono = new ImageIcon(img);
 //		JLabel lblIcono = new JLabel(icono);
 //		jspImagen.setViewportView(lblIcono);
@@ -484,22 +581,25 @@ public class PanelDatosPersonales extends JPanel {
 //		{
 //		JLabel lblIcono = new JLabel("Sin imagen");
 //		jspImagen.setViewportView(lblIcono);
-		}
-		else {
+		} else {
 			this.imagenEnArrayDeBytes = null;
+			JLabel lblicono = new JLabel("Sin Icono");
+			this.jspImagen.setViewportView(lblicono);
+			this.anchoImagen = 0;
+			this.altoImagen = 0;
+
 		}
 		mostrarImagen();
 
-		
-		}
-	
-	private void mostrarImagen () {
+	}
+
+	private void mostrarImagen() {
 		if (imagenEnArrayDeBytes != null && imagenEnArrayDeBytes.length > 0) {
 			ImageIcon icono = new ImageIcon(imagenEnArrayDeBytes);
+
 			JLabel lblIcono = new JLabel(icono);
 			this.jspImagen.setViewportView(lblIcono);
-		}
-		else {
+		} else {
 			JLabel lblIcono = new JLabel("Sin imagen");
 			this.jspImagen.setViewportView(lblIcono);
 		}
@@ -554,15 +654,11 @@ public class PanelDatosPersonales extends JPanel {
 		this.jtfTelefono.setText("" + n);
 	}
 
-	// ME QUEDO POR AQUI
-
 	public int getSexo() {
 		Sexo o;
 		o = (Sexo) this.jcbSexo.getSelectedItem();
 		return o.getId();
 	}
-
-	
 
 	public JComboBox<Sexo> getJcbSexo() {
 		return jcbSexo;
@@ -611,9 +707,6 @@ public class PanelDatosPersonales extends JPanel {
 	public void setRunnableMostrarUltimoRegistro(Runnable runnableMostrarUltimoRegistro) {
 		this.runnableMostrarUltimoRegistro = runnableMostrarUltimoRegistro;
 	}
-
-	
-	
 
 	public JButton getBtnNuevo_1() {
 		return btnNuevo_1;
@@ -703,8 +796,6 @@ public class PanelDatosPersonales extends JPanel {
 		this.jtfTelefono = jtfTelefono;
 	}
 
-	
-
 	private void cargarTodosSexos() {
 		List<Sexo> l = ControladorSexo.getTodos();
 		for (Sexo o : l) {
@@ -723,6 +814,10 @@ public class PanelDatosPersonales extends JPanel {
 		jtfTelefono.setText("");
 		jtfEmail.setText("");
 		jcbSexo.setSelectedItem(null);
+		setImagen(null);
+		mostrarMenu();
+
+		
 
 	}
 
@@ -734,21 +829,31 @@ public class PanelDatosPersonales extends JPanel {
 		this.runnableBorrar = runnableBorrar;
 	}
 
-
 	public JTextField getJtfColorPreferido() {
 		return jtfColorPreferido;
 	}
 
-
 	public void setJtfColorPreferido(JTextField jtfColorPreferido) {
 		this.jtfColorPreferido = jtfColorPreferido;
 	}
-	
-	
-	
-	
-	
-	
-	
 
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
+	}
 }

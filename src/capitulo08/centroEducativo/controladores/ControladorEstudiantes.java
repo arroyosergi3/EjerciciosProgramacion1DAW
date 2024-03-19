@@ -141,8 +141,8 @@ public class ControladorEstudiantes {
 	public static int insercion (Estudiante o, Connection conn) {
 		int nuevoId = SuperControlador.maxIdEnTabla("estudiante");
 		try {
-			PreparedStatement ps = conn.prepareStatement(""+ "insert into estudiante (id, nombre, apellido1, apellido2, dni, direccion, email, telefono, sexo_id, colorFavorito imagen) "
-		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
+			PreparedStatement ps = conn.prepareStatement(""+ "insert into estudiante (id, nombre, apellido1, apellido2, dni, direccion, email, telefono, sexo_id, imagen, colorFavorito) "
+		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			ps.setInt(1, nuevoId);
 			ps.setString(2, o.getNombre());
 			ps.setString(3, o.getApellido_1());

@@ -13,7 +13,7 @@ import capitulo08.centroEducativo.entidades.Materia;
 
 public class ControladorMateria extends SuperControlador{
 
-private static String nombreTabla = "centroeducativo.materia";
+private static String nombreTabla = "materia";
 
 	
 	public static Materia getPrimero() {

@@ -6,7 +6,6 @@ import javax.swing.JPanel;
 import capitulo08.centroEducativo.controladores.ConnectionManager;
 
 import capitulo08.centroEducativo.controladores.ControladorEstudiantes;
-import capitulo08.centroEducativo.controladores.ControladorSexo;
 import capitulo08.centroEducativo.entidades.Estudiante;
 
 import java.awt.BorderLayout;
@@ -101,6 +100,9 @@ public class PanelEstudiante extends JPanel {
 			}
 		});
 
+		
+		
+		panelDatos.mostrarMenu();
 	}
 
 	private void mostrarPrimero() {
@@ -152,6 +154,8 @@ public class PanelEstudiante extends JPanel {
 		this.panelDatos.setImagen(e.getImagen());
 		this.panelDatos.setColorFAvorito(e.getColorFavorito());
 		setBackground();
+		
+		this.panelDatos.mostrarMenu();
 		
 
 	}

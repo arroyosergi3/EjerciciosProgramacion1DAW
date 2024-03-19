@@ -8,6 +8,7 @@ import capitulo08.centroEducativo.vista.PanelCurso;
 import capitulo08.centroEducativo.vista.PanelEstudiante;
 import capitulo08.centroEducativo.vista.PanelMateria;
 import capitulo08.centroEducativo.vista.PanelProfesor;
+import capitulo08.centroEducativo.vista.PanelValoracionMateria;
 
 public class Principal extends JFrame{
 
@@ -25,6 +26,7 @@ public class Principal extends JFrame{
 	PanelMateria panelMateria;
 	PanelEstudiante panelEstudiante;
 	PanelProfesor panelProfesor;
+	PanelValoracionMateria panelValoracionMateria;
 	
 	public PanelCurso getPanelCurso() {
 		return panelCurso;
@@ -107,12 +109,15 @@ public class Principal extends JFrame{
 		 panelMateria = new PanelMateria();
 		 panelEstudiante = new PanelEstudiante();
 		 panelProfesor = new PanelProfesor();
+		 panelValoracionMateria = new PanelValoracionMateria();
 		Menu menu = new Menu();
 		
 		panelTabbed.addTab("Cursos", panelCurso);
 		panelTabbed.addTab("Materias", panelMateria);
 		panelTabbed.addTab("Estudiantes", panelEstudiante);
 		panelTabbed.addTab("Profesores", panelProfesor);
+		panelTabbed.addTab("Valoración Materia", panelValoracionMateria);
+		
 		
 		this.setJMenuBar(menu);
 		

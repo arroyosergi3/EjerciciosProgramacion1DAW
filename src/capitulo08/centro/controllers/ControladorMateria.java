@@ -8,7 +8,7 @@ import java.util.List;
 import capitulo08.centro.entities.Materia;
 
 public class ControladorMateria {
-	private static String nombreTabla = "centro.materia";
+	private static String nombreTabla = "materia";
 
 	public static List<Materia> getTodos(int idNivel) {
 		List<Materia> l = new ArrayList<Materia>();
@@ -27,6 +27,26 @@ public class ControladorMateria {
 
 		return l;
 	}
+	
+	public static List<Materia> getTodos() {
+		List<Materia> l = new ArrayList<Materia>();
+		try {
+			ResultSet rs = ConnectionManager.getConexion().createStatement()
+					.executeQuery("select * from " + nombreTabla );
+			while (rs.next()) {
+				Materia o = getEntidadFromResulSet(rs);
+				l.add(o);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return l;
+	}
+	
+	
 
 	private static Materia getEntidadFromResulSet(ResultSet rs) throws SQLException {
 		Materia o = null;
