@@ -154,6 +154,12 @@ public class PanelValoracionMateria extends JPanel {
 	
 	//GUARDAR
 	//Cuando se crea el panel individual;
+	//comprobar si existe nota, hacer insert o modificacion.
+	private void guardar() {
+		for (PanelValoracionesIndividual panelValoracionesIndividual : this.l) {
+			panelValoracionesIndividual.guardarNota();
+		}
+	}
 	
 }
 

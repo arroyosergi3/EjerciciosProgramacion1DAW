@@ -70,7 +70,7 @@ public class PanelValoracionesIndividual extends JPanel {
 	}
 	
 	
-	private void guardarNota() {
+	public void guardarNota() {
 		// for each de la lista del panelValroacionMateria 
 		//comprobar si existe valoracion est, prof y nota. Si existe, hacer update, si no hacer insert.
 		
