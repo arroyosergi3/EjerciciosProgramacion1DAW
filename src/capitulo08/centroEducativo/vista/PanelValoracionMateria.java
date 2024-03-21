@@ -1,7 +1,6 @@
 package capitulo08.centroEducativo.vista;
 
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import capitulo08.centroEducativo.controladores.ControladorEstudiantes;
 import capitulo08.centroEducativo.controladores.ControladorMateria;
@@ -28,6 +27,8 @@ public class PanelValoracionMateria extends JPanel {
 	private JComboBox<Materia> jcbMateria;
 	private JComboBox<Profesor> jcbProfesor;
 	private JPanel panel_1;
+	private List<PanelValoracionesIndividual> l ;
+	JPanel panel_3;
 
 	private static final long serialVersionUID = 1L;
 
@@ -91,8 +92,16 @@ public class PanelValoracionMateria extends JPanel {
 
 		panel_1 = new JPanel();
 		add(panel_1, BorderLayout.CENTER);
+		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
+		JPanel panel_2 = new JPanel();
+		panel_1.add(panel_2, BorderLayout.SOUTH);
+		
+		JButton btnGuardar = new JButton("Guardar");
+		panel_2.add(btnGuardar);
+		
+		 panel_3 = new JPanel();
+		panel_1.add(panel_3, BorderLayout.CENTER);
 		
 		
 		
@@ -121,18 +130,23 @@ public class PanelValoracionMateria extends JPanel {
 	
 	
 	private void refrescarAlumnado() {
-		panel_1.repaint();
-		panel_1.revalidate();
-		List<Estudiante> l = ControladorEstudiantes.getTodos();
-		for (Estudiante o : l) {
-			PanelValoracionesIndividual nuevo = new PanelValoracionesIndividual();
-			
 		
-			nuevo.lblNombre.setText(o.getNombre() + " " + o.getApellido_1() + " " + o.getApellido_2() + ":");
-			nuevo.jtfNota.setText();
-			
-			}
+		List <Estudiante> estudiantes = ControladorEstudiantes.getTodos();
+		Profesor profSeleccionado = (Profesor) jcbProfesor.getSelectedItem();
+		Materia matSeleccionada = (Materia) jcbMateria.getSelectedItem();
+		this.panel_3.removeAll();
+		
+		for (Estudiante estudiante : estudiantes) {
+			PanelValoracionesIndividual panel = new PanelValoracionesIndividual(profSeleccionado, estudiante, matSeleccionada);
+			this.panel_3.add(panel);
 		}
+		this.panel_3.revalidate();
+		this.panel_3.repaint();
+
+		//Coge materia y profesor y por cada estudiante añado a "l" un ValoracionMAteriaIndividual
+		
 	}
+	
+}
 
 

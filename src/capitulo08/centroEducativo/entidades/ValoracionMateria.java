@@ -2,37 +2,52 @@ package capitulo08.centroEducativo.entidades;
 
 public class ValoracionMateria {
 
-	private Estudiante est;
-	private Profesor prof;
-	private Materia mat;
-	private int valoracion;
+
 	
-	
-	
-	public Estudiante getEst() {
-		return est;
+	private int id, idProfesor, idMateria, idEstudiante;
+	private float valoracion;
+
+	public int getId() {
+		return id;
 	}
-	public void setEst(Estudiante est) {
-		this.est = est;
+
+	public void setId(int id) {
+		this.id = id;
 	}
-	public Profesor getProf() {
-		return prof;
+
+	public int getIdProfesor() {
+		return idProfesor;
 	}
-	public void setProf(Profesor prof) {
-		this.prof = prof;
+
+	public void setIdProfesor(int idProfesor) {
+		this.idProfesor = idProfesor;
 	}
-	public Materia getMat() {
-		return mat;
+
+	public int getIdMateria() {
+		return idMateria;
 	}
-	public void setMat(Materia mat) {
-		this.mat = mat;
+
+	public void setIdMateria(int idMateria) {
+		this.idMateria = idMateria;
 	}
-	public int getValoracion() {
+
+	public int getIdEstudiante() {
+		return idEstudiante;
+	}
+
+	public void setIdEstudiante(int idEstudiante) {
+		this.idEstudiante = idEstudiante;
+	}
+
+	public float getValoracion() {
 		return valoracion;
 	}
-	public void setValoracion(int valoracion) {
+
+	public void setValoracion(float valoracion) {
 		this.valoracion = valoracion;
 	}
+
+	
 	
 	
 	
