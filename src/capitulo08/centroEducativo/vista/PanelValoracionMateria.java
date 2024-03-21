@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -27,8 +28,8 @@ public class PanelValoracionMateria extends JPanel {
 	private JComboBox<Materia> jcbMateria;
 	private JComboBox<Profesor> jcbProfesor;
 	private JPanel panel_1;
-	private List<PanelValoracionesIndividual> l ;
-	JPanel panel_3;
+	private List<PanelValoracionesIndividual> l = new ArrayList<PanelValoracionesIndividual>() ;
+	JPanel panelEstudiantes;
 
 	private static final long serialVersionUID = 1L;
 
@@ -100,8 +101,9 @@ public class PanelValoracionMateria extends JPanel {
 		JButton btnGuardar = new JButton("Guardar");
 		panel_2.add(btnGuardar);
 		
-		 panel_3 = new JPanel();
-		panel_1.add(panel_3, BorderLayout.CENTER);
+		 panelEstudiantes = new JPanel();
+		panel_1.add(panelEstudiantes, BorderLayout.CENTER);
+		panelEstudiantes.setLayout(new BoxLayout(panelEstudiantes, BoxLayout.Y_AXIS));
 		
 		
 		
@@ -134,18 +136,24 @@ public class PanelValoracionMateria extends JPanel {
 		List <Estudiante> estudiantes = ControladorEstudiantes.getTodos();
 		Profesor profSeleccionado = (Profesor) jcbProfesor.getSelectedItem();
 		Materia matSeleccionada = (Materia) jcbMateria.getSelectedItem();
-		this.panel_3.removeAll();
+		this.panelEstudiantes.removeAll();
+		this.l.clear();
 		
 		for (Estudiante estudiante : estudiantes) {
 			PanelValoracionesIndividual panel = new PanelValoracionesIndividual(profSeleccionado, estudiante, matSeleccionada);
-			this.panel_3.add(panel);
+			this.panelEstudiantes.add(panel);
+			l.add(panel);
 		}
-		this.panel_3.revalidate();
-		this.panel_3.repaint();
+		this.panelEstudiantes.revalidate();
+		this.panelEstudiantes.repaint();
 
 		//Coge materia y profesor y por cada estudiante añado a "l" un ValoracionMAteriaIndividual
 		
 	}
+	
+	
+	//GUARDAR
+	//Cuando se crea el panel individual;
 	
 }
 
