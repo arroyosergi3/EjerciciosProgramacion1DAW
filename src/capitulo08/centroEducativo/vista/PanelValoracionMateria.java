@@ -5,12 +5,15 @@ import javax.swing.JPanel;
 import capitulo08.centroEducativo.controladores.ControladorEstudiantes;
 import capitulo08.centroEducativo.controladores.ControladorMateria;
 import capitulo08.centroEducativo.controladores.ControladorProfesor;
+import capitulo08.centroEducativo.controladores.ControladorValoracionMateria;
 import capitulo08.centroEducativo.entidades.Estudiante;
 import capitulo08.centroEducativo.entidades.Materia;
 import capitulo08.centroEducativo.entidades.Profesor;
 
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -28,7 +31,7 @@ public class PanelValoracionMateria extends JPanel {
 	private JComboBox<Materia> jcbMateria;
 	private JComboBox<Profesor> jcbProfesor;
 	private JPanel panel_1;
-	private List<PanelValoracionesIndividual> l = new ArrayList<PanelValoracionesIndividual>() ;
+	private List<PanelValoracionesIndividual> l = new ArrayList<PanelValoracionesIndividual>();
 	JPanel panelEstudiantes;
 
 	private static final long serialVersionUID = 1L;
@@ -94,21 +97,22 @@ public class PanelValoracionMateria extends JPanel {
 		panel_1 = new JPanel();
 		add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel panel_2 = new JPanel();
 		panel_1.add(panel_2, BorderLayout.SOUTH);
-		
+
 		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				guardar();
+			}
+		});
 		panel_2.add(btnGuardar);
-		
-		 panelEstudiantes = new JPanel();
+
+		panelEstudiantes = new JPanel();
 		panel_1.add(panelEstudiantes, BorderLayout.CENTER);
 		panelEstudiantes.setLayout(new BoxLayout(panelEstudiantes, BoxLayout.Y_AXIS));
-		
-		
-		
-		
-		
+
 		cargarTodasMaterias();
 		cargarTodosProfesores();
 
@@ -128,17 +132,14 @@ public class PanelValoracionMateria extends JPanel {
 		}
 
 	}
-	
-	
-	
+
 	private void refrescarAlumnado() {
-		
-		List <Estudiante> estudiantes = ControladorEstudiantes.getTodos();
-		Profesor profSeleccionado = (Profesor) jcbProfesor.getSelectedItem();
-		Materia matSeleccionada = (Materia) jcbMateria.getSelectedItem();
+		List<Estudiante> estudiantes = ControladorEstudiantes.getTodos();
+		Profesor profSeleccionado = (Profesor) this.jcbProfesor.getSelectedItem();
+		Materia matSeleccionada = (Materia) this.jcbMateria.getSelectedItem();
 		this.panelEstudiantes.removeAll();
 		this.l.clear();
-		
+
 		for (Estudiante estudiante : estudiantes) {
 			PanelValoracionesIndividual panel = new PanelValoracionesIndividual(profSeleccionado, estudiante, matSeleccionada);
 			this.panelEstudiantes.add(panel);
@@ -146,21 +147,16 @@ public class PanelValoracionMateria extends JPanel {
 		}
 		this.panelEstudiantes.revalidate();
 		this.panelEstudiantes.repaint();
-
-		//Coge materia y profesor y por cada estudiante añado a "l" un ValoracionMAteriaIndividual
-		
 	}
-	
-	
-	//GUARDAR
-	//Cuando se crea el panel individual;
-	//comprobar si existe nota, hacer insert o modificacion.
+
+	// GUARDAR
+	// Cuando se crea el panel individual;
+	// comprobar si existe nota, hacer insert o modificacion.
 	private void guardar() {
 		for (PanelValoracionesIndividual panelValoracionesIndividual : this.l) {
 			panelValoracionesIndividual.guardarNota();
 		}
+		JOptionPane.showMessageDialog(null, "Registros guardados con éxtio");
 	}
-	
+
 }
-
-

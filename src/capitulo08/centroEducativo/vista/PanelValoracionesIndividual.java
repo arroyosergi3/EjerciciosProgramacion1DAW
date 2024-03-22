@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 
+import capitulo08.centroEducativo.controladores.ConnectionManager;
 import capitulo08.centroEducativo.controladores.ControladorValoracionMateria;
 import capitulo08.centroEducativo.entidades.Estudiante;
 import capitulo08.centroEducativo.entidades.Materia;
@@ -13,6 +14,8 @@ import capitulo08.centroEducativo.entidades.Profesor;
 import capitulo08.centroEducativo.entidades.ValoracionMateria;
 
 import java.awt.Insets;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class PanelValoracionesIndividual extends JPanel {
 
@@ -56,7 +59,7 @@ public class PanelValoracionesIndividual extends JPanel {
 		gbc_jtfNota.gridy = 0;
 		add(jtfNota, gbc_jtfNota);
 		jtfNota.setColumns(10);
-		lblNombre.setText(this.estudiante.getNombre() + " " + this.estudiante.getApellido_1() + " " + this.estudiante.getApellido_2());
+		this.lblNombre.setText(this.estudiante.getNombre() + " " + this.estudiante.getApellido_1() + " " + this.estudiante.getApellido_2());
 		cargarNotaActual();
 	}
 	/**
@@ -71,10 +74,29 @@ public class PanelValoracionesIndividual extends JPanel {
 	
 	
 	public void guardarNota() {
-		// for each de la lista del panelValroacionMateria 
-		//comprobar si existe valoracion est, prof y nota. Si existe, hacer update, si no hacer insert.
-		
+	    try {
+	        Connection conn = ConnectionManager.getConexion();
+	        ValoracionMateria v = ControladorValoracionMateria.findByIdMateriaAndIdProfesorAndIdEstudiante(this.materia.getId(), this.profesor.getId(), this.estudiante.getId());
+	        if (v != null) {
+	            // Si la valoración ya existe, actualiza la valoración existente
+	            v.setValoracion(Float.parseFloat(this.jtfNota.getText()));
+	            ControladorValoracionMateria.modificacion(v, conn);
+	        } else {
+	            // Si la valoración no existe, crea una nueva
+	            v = new ValoracionMateria();
+	            v.setIdMateria(this.materia.getId());
+	            v.setIdProfesor(this.profesor.getId());
+	            v.setIdEstudiante(this.estudiante.getId());
+	            v.setValoracion(Float.parseFloat(this.jtfNota.getText()));
+	            ControladorValoracionMateria.insercion(v, conn);
+	        }
+	    } catch (SQLException e) {
+	        // Manejo de la excepción
+	        e.printStackTrace();
+	    }
 	}
+
+
 	
 	
 	

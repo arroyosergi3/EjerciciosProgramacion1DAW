@@ -60,55 +60,53 @@ public class ControladorValoracionMateria extends SuperControlador {
 
 	
 	
-	public static int insercion (Curso o, Connection conn) {
-		int nuevoId = SuperControlador.maxIdEnTabla("curso");
-		try {
-			PreparedStatement ps = conn.prepareStatement(""+ "insert into curso (id, descripcion) "
-		+ "values (?, ?)");
-			ps.setInt(1, nuevoId);
-			ps.setString(2, o.getDescripcion());
+	public static void insercion (ValoracionMateria o, Connection conn) {
+		int nuevoId = SuperControlador.maxIdEnTabla(nombreTabla);
+		if (o != null) {
+			try {
+				PreparedStatement ps = conn.prepareStatement(""+ "insert into " + nombreTabla + "(id, idProfesor, idEstudiante, idMateria, valoracion) "
+			+ "values (?, ?, ? , ? , ?)");
+				ps.setInt(1, nuevoId);
+				ps.setInt(2, o.getIdProfesor());
+				ps.setInt(3, o.getIdEstudiante());
+				ps.setInt(4, o.getIdMateria());
+				ps.setFloat(5, o.getValoracion());
+				ps.executeQuery();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
-			ps.execute();
-			return nuevoId;
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return -1;
 	}
 	
 	
 	
-	public static void modificacion (Curso  o, Connection conn) {
-		try {
-			PreparedStatement ps = conn.prepareStatement(""+ "update curso set descripcion=? where id=?");
-			ps.setString(1, o.getDescripcion());
-			ps.setInt(2, o.getId());
-			ps.execute();
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public static void modificacion (ValoracionMateria  o, Connection conn) {
+		if (o != null) {
+			try {
+				
+				PreparedStatement ps = conn.prepareStatement(""+ "update " + nombreTabla + " set valoracion=? where  idProfesor = ? and idEstudiante=? and idMateria=?");
+				ps.setFloat(1, o.getValoracion());
+				ps.setInt(2, o.getIdProfesor());
+				ps.setInt(3, o.getIdEstudiante());
+				ps.setInt(4, o.getIdMateria());
+
+				ps.execute();
+				
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
+		
 	}
 	
-	
-	public static void eliminacion (int id, Connection conn) {
-		try {
-			PreparedStatement ps = conn.prepareStatement(""
-					+ "delete from curso where id = ?");
-			ps.setInt(1, id);
-			
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
+
 	
 	
 	
